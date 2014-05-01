@@ -25,6 +25,7 @@
 )
 
 
+
 ;-----------------------------------------------
 
 (defun devil-add-selection-keymap ()
@@ -55,9 +56,8 @@
   (define-key devil-mode-map (kbd "TAB") 'exchange-point-and-mark)
   (define-key devil-mode-map (kbd "h k") 'describe-key)
   (define-key devil-mode-map (kbd "h f") 'describe-function)
-  (define-key devil-mode-map (kbd "SPC") 'keyboard-quit)
+  (define-key devil-mode-map (kbd "RET") 'keyboard-quit)
   )
-
 
   (set-temporary-overlay-map devil-mode-map t)
 )

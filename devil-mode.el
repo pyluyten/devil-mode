@@ -1,7 +1,24 @@
-;;          KEYMAP
+;;          VARS
 ;; --------------------------------------------
 (defvar devil-mode-map nil "Keymap for devil-mode")
 
+
+;; -----------COMMANDS -----------------
+(defun devil-search-foward ()
+ (interactive)
+ (isearch-forward-regexp)
+ (devil-add-selection-keymap)
+)
+
+
+(defun devil-search-backward ()
+ (interactive)
+ (isearch-backward-regexp)
+ (devil-add-selection-keymap)
+)
+
+
+;-----------------------------------------------
 
 (defun devil-add-selection-keymap ()
   (when (not devil-mode-map)
@@ -13,16 +30,13 @@
   (define-key devil-mode-map (kbd "k") 'next-line)
   (define-key devil-mode-map (kbd "i") 'previous-line)
   (define-key devil-mode-map (kbd "$") 'end-of-line)
-  (define-key devil-mode-map (kbd "a") 'beginning-of-line)
   (define-key devil-mode-map (kbd "0") 'beginning-of-line)
-  (define-key devil-mode-map (kbd "^") 'back-to-indentation)
+  (define-key devil-mode-map (kbd "^") 'back-to-indentation) ;; or beginning..
   (define-key devil-mode-map (kbd "w") 'forward-word)
   (define-key devil-mode-map (kbd "b") 'backward-word)
-  (define-key devil-mode-map (kbd "z") 'zap-to-char)
 
-  ;------------------------ more moves! ----------------
-  (define-key devil-mode-map (kbd "s") 'isearch-forward)
-
+  (define-key devil-mode-map (kbd "s") 'devil-search-foward)
+  (define-key devil-mode-map (kbd "r") 'devil-search-backward)
 
   ;------------------ operators -------------------------
   (define-key devil-mode-map (kbd "c") 'kill-ring-save)  
@@ -37,12 +51,13 @@
   (define-key devil-mode-map (kbd "SPC") 'keyboard-quit)
   )
 
+
   (set-temporary-overlay-map devil-mode-map t)
 )
 
 
-;;             toggle keymap
-;; ------------------------------
+  ;-------------- hooks, mode ----------------
+
 (defun devil-activate-selection-state ()
    (devil-add-selection-keymap)
 )
@@ -55,8 +70,6 @@
 (add-hook 'activate-mark-hook 'devil-deactivate-selection-state)
 
 
-;;         define mode
-;; ------------------------------
 
 (define-minor-mode devil-mode
   "Easily navigate while text is selected"

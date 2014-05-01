@@ -18,6 +18,13 @@
 )
 
 
+(defun devil-back-to-indentation ()
+  (interactive)
+  (if (= (point) (progn (back-to-indentation) (point)))
+    (beginning-of-line))
+)
+
+
 ;-----------------------------------------------
 
 (defun devil-add-selection-keymap ()
@@ -31,7 +38,7 @@
   (define-key devil-mode-map (kbd "i") 'previous-line)
   (define-key devil-mode-map (kbd "$") 'end-of-line)
   (define-key devil-mode-map (kbd "0") 'beginning-of-line)
-  (define-key devil-mode-map (kbd "^") 'back-to-indentation) ;; or beginning..
+  (define-key devil-mode-map (kbd "^") 'devil-back-to-indentation)
   (define-key devil-mode-map (kbd "w") 'forward-word)
   (define-key devil-mode-map (kbd "b") 'backward-word)
 

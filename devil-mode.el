@@ -14,9 +14,11 @@
   (define-key devil-mode-map (kbd "i") 'previous-line)
   (define-key devil-mode-map (kbd "$") 'end-of-line)
   (define-key devil-mode-map (kbd "a") 'beginning-of-line)
+  (define-key devil-mode-map (kbd "0") 'beginning-of-line)
   (define-key devil-mode-map (kbd "^") 'back-to-indentation)
   (define-key devil-mode-map (kbd "w") 'forward-word)
   (define-key devil-mode-map (kbd "b") 'backward-word)
+  (define-key devil-mode-map (kbd "z") 'zap-to-char)
 
   ;------------------------ more moves! ----------------
   (define-key devil-mode-map (kbd "s") 'isearch-forward)

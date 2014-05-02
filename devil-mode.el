@@ -1,4 +1,8 @@
-;;          VARS
+
+(require 'cua-base)
+(require 'rect)
+
+ ;;          VARS
 ;; --------------------------------------------
 (defvar devil-mode-map nil "Keymap for devil-mode")
 
@@ -24,6 +28,16 @@
     (beginning-of-line))
 )
 
+
+
+;; to support inserting space into cua rectanlges
+;; while still quitting with space
+(defun devil-space ()
+  (interactive)
+  (if cua--rectangle
+    (cua-insert-char-rectangle 32) ;SPC
+    (keyboard-quit))
+)
 
 
 ;-----------------------------------------------
@@ -57,6 +71,7 @@
   (define-key devil-mode-map (kbd "h k") 'describe-key)
   (define-key devil-mode-map (kbd "h f") 'describe-function)
   (define-key devil-mode-map (kbd "RET") 'keyboard-quit)
+  (define-key devil-mode-map (kbd "SPC") 'devil-space)
   )
 
   (set-temporary-overlay-map devil-mode-map t)

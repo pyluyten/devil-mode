@@ -1,30 +1,14 @@
-; essai de customisation de evil-mode
-; pour convenir aux gens convenables
-
 ;(require 'evil-mode)
 
-; DONE
 ; A. emacs-state cursor amended
 ; B. normal mode switches to emacs for a A i I o O
 ;    as does c.
 ; C. visual mode uses cua (x "cut", c "copy)
 ; D. use i j k l. Rather than i, use SPC to insert. Rather than I, use h.
+; E. Have emacs TAB go to vi state. Probably way too broken.
 
 
-
-; TO BE THOUGHT
-; M-SPC sucks. I kept ^z but needs something better here.
-; is TAB fine?
-
-
-
-
-; FIXME - normal mode should have ways to go to 
-;         emacs selection mode. CHAR/LINEWISE maybe fine.
-;                               not BLOCKWISE
-; evil-visual-char
-; evil-visual-line
-; evil-visual-block > not real time
+; TODO selections: evil-visual-char evil-visual-line evil-visual-block
 
 (setq evil-emacs-state-cursor evil-insert-state-cursor)
 
@@ -89,6 +73,7 @@
 (define-key evil-normal-state-map "o" 'details-insert-below)
 (define-key evil-normal-state-map "O" 'details-insert-above)
 (define-key evil-emacs-state-map (kbd "M-SPC") 'evil-normal-state)
+(define-key evil-emacs-state-map (kbd "TAB") 'evil-normal-state)
 (define-key evil-normal-state-map (kbd "SPC") 'evil-emacs-state)
 (define-key evil-visual-state-map "x" 'kill-region)
 (define-key evil-visual-state-map "c" 'kill-ring-save)

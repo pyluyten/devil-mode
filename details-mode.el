@@ -58,12 +58,19 @@
   (evil-emacs-state)
 )
 
+(defun details-block ()
+  (interactive)
+  (evil-emacs-state)
+  (cua-set-rectangle-mark)
+)
+
 
  (evil-define-operator details-change (beg end)
      "Change selected text."
     (kill-region beg end)
     (evil-emacs-state)
  )
+
 
 
 (evil-set-initial-state 'Emacs-Lisp 'emacs) ; marche pas.
@@ -80,6 +87,6 @@
 (define-key evil-visual-state-map "x" 'kill-region)
 (define-key evil-visual-state-map "c" 'kill-ring-save)
 (define-key evil-normal-state-map "c" 'details-change)
- 
+(define-key evil-normal-state-map (kbd "C-RET") 'details-block)
 
 (provide 'details-mode)

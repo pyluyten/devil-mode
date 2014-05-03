@@ -8,14 +8,15 @@
 ; B. normal mode switches to emacs for a A i I o O
 ;    as does c.
 ; C. visual mode uses cua (x "cut", c "copy)
+; D. use i j k l. Rather than i, use SPC to insert. Rather than I, use h.
+
 
 
 ; TO BE THOUGHT
 ; M-SPC sucks. I kept ^z but needs something better here.
 ; is TAB fine?
-;
-; D. maybe     i
-;            j k l       ;; so SPC for i and h for I?
+
+
 
 
 ; FIXME - normal mode should have ways to go to 
@@ -76,8 +77,13 @@
 (evil-set-initial-state 'Emacs-Lisp 'emacs) ; marche pas.
 
 
-(define-key evil-normal-state-map "i" 'evil-emacs-state)
-(define-key evil-normal-state-map "I" 'details-insert-line)
+; redefine i h k l. Nah, l is fine.
+(define-key evil-normal-state-map "i" 'evil-previous-line)
+(define-key evil-normal-state-map "k" 'evil-next-line)
+(define-key evil-normal-state-map "j" 'evil-backward-char)
+
+
+(define-key evil-normal-state-map "h" 'details-insert-line)
 (define-key evil-normal-state-map "a" 'details-append)
 (define-key evil-normal-state-map "A" 'details-append-line)
 (define-key evil-normal-state-map "o" 'details-insert-below)

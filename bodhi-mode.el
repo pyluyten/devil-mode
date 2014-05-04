@@ -1,5 +1,21 @@
-;; todo : document a bit. Info mode
+;; todo : document a bit --> info
+;;       - require 'bodhi -> global minor mode
+;;       - M spc then alias. TODO : more aliases
+;;       - use selection to perform anything complicated
+;;       - use ijkl paddle plus its u/o extension.
+;;              Backspace backs, s-backspace forward
+;;              Control stands for... "control", ie move point...
+;;              Alt stands for ... "Alter"!, ie change things.
+;;            This conflicts with ^o open file !
+;;            todo : test hm but need something for return
+;;            && help
+;;       - More TODO : ibuffer, dired, org. NOT : maggit, ...
+;;       - 
+
 ;; is there a way to have a layout? -> ergoEmacs
+
+;; alises : document + how to get to Mx
+;; 
 
 ;; ^w ^t : close frame, new frame
 ;; page
@@ -14,8 +30,27 @@
 (defvar bodhi-selection-state-map nil "Keymap for bodhi selection state")
 (defvar bodhi-normal-state-map nil "Keymap for bodhi normal state")
 
-; ---- commands ----------------------
 
+; ---- aliases -----------------------
+
+(defun q ()
+ (interactive)
+ (save-buffers-kill-terminal))
+
+
+(defun w ()
+ (interactive)
+ (save-buffer))
+
+(defun sole ()
+ (interactive)
+ (delete-other-windows))
+
+
+
+
+; ---- commands ----------------------
+ 
 
 (defun bodhi-copy-from-above (&optional arg)
   "Copy characters from previous nonblank line, starting just above point.
@@ -161,6 +196,9 @@ If no argument given, copy 1 char."
 
 (setq bodhi-normal-state-map (make-sparse-keymap))
 
+(define-key bodhi-normal-state-map (kbd "M-<SPC>") 'execute-extended-command) 
+(define-key bodhi-normal-state-map (kbd "<return>") 'execute-extended-command)
+
 (define-key bodhi-normal-state-map (kbd "C-i") 'previous-line)
 (define-key bodhi-normal-state-map (kbd "C-j") 'backward-char)
 (define-key bodhi-normal-state-map (kbd "C-l") 'forward-char)
@@ -190,8 +228,8 @@ If no argument given, copy 1 char."
 (define-key bodhi-normal-state-map (kbd "M-f") 'isearch-forward-regexp)
 (define-key bodhi-normal-state-map (kbd "C-v") 'cua-paste)
 
-(define-key bodhi-normal-state-map (kbd "$")   'bodhi-end-of-line)
-(define-key bodhi-normal-state-map (kbd "C-$") 'bodhi-end-of-line)
+(define-key bodhi-normal-state-map (kbd "$")   'end-of-line)
+(define-key bodhi-normal-state-map (kbd "C-$") 'end-of-line)
 (define-key bodhi-normal-state-map (kbd "M-$") 'kill-line)
 
 (define-key bodhi-normal-state-map (kbd "C-à") 'beginning-of-line)
@@ -202,16 +240,17 @@ If no argument given, copy 1 char."
 (define-key bodhi-normal-state-map (kbd "C-x x") 'kill-whole-line)
 (define-key bodhi-normal-state-map (kbd "C-x o") 'kill-word)
 (define-key bodhi-normal-state-map (kbd "C-x u") 'backward-kill-word)
-
+(define-key bodhi-normal-state-map (kbd "C-x $") 'kill-line)
 
 (define-key bodhi-normal-state-map (kbd "DEL") 'backward-word)
-(define-key bodhi-normal-state-map (kbd "<M-DEL") 'backward-kill-word)
+(define-key bodhi-normal-state-map (kbd "<M-DEL>") 'backward-kill-word)
 (define-key bodhi-normal-state-map (kbd "<S-backspace>") 'forward-word)
 (define-key bodhi-normal-state-map (kbd "<M-S-backspace>") 'kill-word)
 
-;(define-key bodhi-normal-state-map (kbd "TAB") 'next-buffer) ; breaks ^i
-;(define-key bodhi-normal-state-map (kbd "<S-tab>") 'previous-buffer)
-(define-key bodhi-normal-state-map (kbd "<C-tab>") 'ibuffer)
+
+;(define-key bodhi-normal-state-map (kbd "<tab>") 'ibuffer) ; breaks completion
+;(define-key bodhi-normal-state-map (kbd "S-<tab>") 'previous-buffer)
+(define-key bodhi-normal-state-map (kbd "²") 'ibuffer)
 
 (define-key bodhi-normal-state-map (kbd "C-e") 'bodhi-copy-from-above)
 

@@ -10,7 +10,7 @@
 
 ;;    /*
 ;;     *   FIXME
-;;     *   end of line, yank line
+;;     *   yank line
 ;;     */
 
 ;; is there a way to have a layout? -> ergoEmacs
@@ -130,6 +130,29 @@ If no argument given, copy 1 char."
     (beginning-of-line)))
 
 
+
+ (defun bodhi-copy-line (arg)
+    "Copy lines (as many as prefix argument) in the kill ring.
+      Ease of use features:
+      - Move to start of next line.
+      - Appends the copy on sequential calls.
+      - Use newline as last char even on the last line of the buffer.
+      - If region is active, copy its lines."
+    (interactive "p")
+    (let ((beg (line-beginning-position))
+          (end (line-end-position arg)))
+      (when mark-active
+        (if (> (point) (mark))
+            (setq beg (save-excursion (goto-char (mark)) (line-beginning-position)))
+          (setq end (save-excursion (goto-char (mark)) (line-end-position)))))
+      (if (eq last-command 'copy-line)
+          (kill-append (buffer-substring beg end) (< end beg))
+        (kill-ring-save beg end)))
+    (kill-append "\n" nil)
+    (beginning-of-line (or (and arg (1+ arg)) 2))
+    (if (and arg (not (= 1 arg))) (message "%d lines copied" arg)))
+
+
 ; ---- selection-state ---------------
 
 
@@ -144,12 +167,12 @@ If no argument given, copy 1 char."
   (define-key bodhi-selection-state-map (kbd "$") 'end-of-line)
   (define-key bodhi-selection-state-map (kbd "0") 'beginning-of-line)
   (define-key bodhi-selection-state-map (kbd "à") 'beginning-of-line)
-  (define-key bodhi-selection-state-map (kbd "^") 'devil-back-to-indentation)
+  (define-key bodhi-selection-state-map (kbd "^") 'bodhi-back-to-indentation)
   (define-key bodhi-selection-state-map (kbd "w") 'forward-word)
   (define-key bodhi-selection-state-map (kbd "b") 'backward-word)
 
-  (define-key bodhi-selection-state-map (kbd "s") 'devil-search-foward)
-  (define-key bodhi-selection-state-map (kbd "r") 'devil-search-backward)
+  (define-key bodhi-selection-state-map (kbd "s") 'bodhi-search-foward)
+  (define-key bodhi-selection-state-map (kbd "r") 'bodhi-search-backward)
 
   (define-key bodhi-selection-state-map (kbd "c") 'kill-ring-save)  
   (define-key bodhi-selection-state-map (kbd "x") 'kill-region)
@@ -247,7 +270,7 @@ If no argument given, copy 1 char."
 (define-key bodhi-normal-state-map (kbd "C-^") 'beginning-of-line)
 (define-key bodhi-normal-state-map (kbd "M-à") 'bodhi-backward-kill-line)
 
-(define-key bodhi-normal-state-map (kbd "C-c c") 'bodhi-yank-line)
+(define-key bodhi-normal-state-map (kbd "C-c c") 'bodhi-copy-line)
 (define-key bodhi-normal-state-map (kbd "C-x x") 'kill-whole-line)
 (define-key bodhi-normal-state-map (kbd "C-x o") 'kill-word)
 (define-key bodhi-normal-state-map (kbd "C-x u") 'backward-kill-word)

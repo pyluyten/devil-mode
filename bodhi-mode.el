@@ -141,7 +141,7 @@ If no argument given, copy 1 char."
   (define-key bodhi-selection-state-map (kbd "j") 'backward-char)
   (define-key bodhi-selection-state-map (kbd "k") 'next-line)
   (define-key bodhi-selection-state-map (kbd "i") 'previous-line)
-  (define-key bodhi-selection-state-map (kbd "$") 'bodhi-end-of-line)
+  (define-key bodhi-selection-state-map (kbd "$") 'end-of-line)
   (define-key bodhi-selection-state-map (kbd "0") 'beginning-of-line)
   (define-key bodhi-selection-state-map (kbd "à") 'beginning-of-line)
   (define-key bodhi-selection-state-map (kbd "^") 'devil-back-to-indentation)

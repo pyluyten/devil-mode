@@ -13,9 +13,8 @@
 ;;       - 
 
 ;; is there a way to have a layout? -> ergoEmacs
+; note on keys: ^i=TAB, ^m=RET, avoid ? ^h ^[
 
-;; alises : document + how to get to Mx
-;; 
 
 ;; ^w ^t : close frame, new frame
 ;; page
@@ -30,22 +29,18 @@
 (defvar bodhi-selection-state-map nil "Keymap for bodhi selection state")
 (defvar bodhi-normal-state-map nil "Keymap for bodhi normal state")
 
+(setq bodhi-normal-state-map (make-sparse-keymap))
+
 
 ; ---- aliases -----------------------
 
-(defun q ()
- (interactive)
- (save-buffers-kill-terminal))
 
-
-(defun w ()
- (interactive)
- (save-buffer))
-
-(defun sole ()
- (interactive)
- (delete-other-windows))
-
+(defalias 'bdh     'bodhi-mode)
+(defalias 'one     'delete-other-windows)
+(defalias 'eb      'eval-buffer)
+(defalias 'w       'save-buffer)
+(defalias 'q       'save-buffers-kill-terminal)
+(defalias 'vs      'split-window-right)
 
 
 
@@ -144,6 +139,7 @@ If no argument given, copy 1 char."
     (beginning-of-line)))
 
 
+
 ; ---- selection-state ---------------
 
 
@@ -181,23 +177,38 @@ If no argument given, copy 1 char."
 
 
 (defun bodhi-activate-selection-state ()
-   (bodhi-add-selection-keymap)
-)
+   (bodhi-add-selection-keymap))
 
-(defun bodhi-deactivate-selection-state ()
-)
+(defun bodhi-deactivate-selection-state ())
 
-(add-hook 'activate-mark-hook 'bodhi-activate-selection-state)
 
-(add-hook 'activate-mark-hook 'bodhi-deactivate-selection-state)
+
+
+; ------- hooks --------
+; ----------------------
+
+; fix C-i for minibuffer
+; provide specific binding for selections
+
+(defun bodhi-prepare-for-minibuffer ()
+  (define-key bodhi-normal-state-map (kbd "C-i") 'minibuffer-complete))
+
+
+(defun bodhi-leave-minibuffer ()
+  (define-key bodhi-normal-state-map (kbd "C-i") 'previous-line))
+
+
+(add-hook 'minibuffer-setup-hook 'bodhi-prepare-for-minibuffer)
+(add-hook 'minibuffer-exit-hook  'bodhi-leave-minibuffer)
+(add-hook 'activate-mark-hook    'bodhi-activate-selection-state)
+(add-hook 'activate-mark-hook    'bodhi-deactivate-selection-state)
+
 
 
 ; ---- normal-state ------------------
 
-(setq bodhi-normal-state-map (make-sparse-keymap))
 
-(define-key bodhi-normal-state-map (kbd "M-<SPC>") 'execute-extended-command) 
-(define-key bodhi-normal-state-map (kbd "<return>") 'execute-extended-command)
+(define-key bodhi-normal-state-map (kbd "M-<SPC>") 'execute-extended-command)
 
 (define-key bodhi-normal-state-map (kbd "C-i") 'previous-line)
 (define-key bodhi-normal-state-map (kbd "C-j") 'backward-char)
@@ -242,16 +253,13 @@ If no argument given, copy 1 char."
 (define-key bodhi-normal-state-map (kbd "C-x u") 'backward-kill-word)
 (define-key bodhi-normal-state-map (kbd "C-x $") 'kill-line)
 
-(define-key bodhi-normal-state-map (kbd "DEL") 'backward-word)
-(define-key bodhi-normal-state-map (kbd "<M-DEL>") 'backward-kill-word)
-(define-key bodhi-normal-state-map (kbd "<S-backspace>") 'forward-word)
-(define-key bodhi-normal-state-map (kbd "<M-S-backspace>") 'kill-word)
+(define-key bodhi-normal-state-map (kbd "C-<backspace>") 'backward-word)
+(define-key bodhi-normal-state-map (kbd "M-<backpsace>") 'backward-kill-word)
+(define-key bodhi-normal-state-map (kbd "S-<backspace>") 'forward-word)
+(define-key bodhi-normal-state-map (kbd "M-S-<backspace>") 'kill-word)
+; ^ s backspace = kill whole line
 
-
-;(define-key bodhi-normal-state-map (kbd "<tab>") 'ibuffer) ; breaks completion
-;(define-key bodhi-normal-state-map (kbd "S-<tab>") 'previous-buffer)
 (define-key bodhi-normal-state-map (kbd "²") 'ibuffer)
-
 (define-key bodhi-normal-state-map (kbd "C-e") 'bodhi-copy-from-above)
 
 (define-minor-mode bodhi-mode 

@@ -6,15 +6,9 @@
 ;;    TAB is not available. Well it goes previous line.
 ;;
 ;;    TODO : dired, org. NOT : maggit, ...
-
-
-;;    /*
-;;     *   FIXME
-;;     *   yank line
-;;     */
-
-;; is there a way to have a layout? -> ergoEmacs
-; note on keys: ^i=TAB, ^m=RET, avoid ? ^h ^[
+;;    TODO : mode-dependant cursor
+;;
+;;    Remember, C-i=TAB, C-m=RET, avoid ?
 
 
 (require 'cua-base)

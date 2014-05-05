@@ -5,7 +5,7 @@
 ;;    This conflicts with ^c c to capture.
 ;;    TAB is not available. Well it goes previous line.
 ;;
-;;    TODO : ibuffer, dired, org. NOT : maggit, ...
+;;    TODO : search-mode, dired, org. NOT : maggit, ...
 
 ;; is there a way to have a layout? -> ergoEmacs
 ; note on keys: ^i=TAB, ^m=RET, avoid ? ^h ^[
@@ -166,6 +166,10 @@ If no argument given, copy 1 char."
 (defun bodhi-deactivate-selection-state ())
 
 
+(defun bodhi-prepare-for-ibuffer ()
+  (define-key ibuffer-mode-map (kbd "i") 'ibuffer-backward-line)
+  ; use <space> to go down. i is enough =)
+)
 
 
 ; ------- hooks --------
@@ -186,7 +190,7 @@ If no argument given, copy 1 char."
 (add-hook 'minibuffer-exit-hook  'bodhi-leave-minibuffer)
 (add-hook 'activate-mark-hook    'bodhi-activate-selection-state)
 (add-hook 'activate-mark-hook    'bodhi-deactivate-selection-state)
-
+(add-hook 'ibuffer-hook     'bodhi-prepare-for-ibuffer)
 
 
 ; ---- normal-state ------------------

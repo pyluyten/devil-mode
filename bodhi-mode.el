@@ -5,10 +5,10 @@
 ;;    This conflicts with ^c c to capture.
 ;;    TAB is not available. Well it goes previous line.
 ;;
-;;    TODO : dired, org. NOT : maggit, ...
+;;    TODO : org-mode. EXCLUDE : maggit, ...
 ;;    TODO : mode-dependant cursor
 ;;
-;;    Remember, C-i=TAB, C-m=RET, avoid ?
+;;    Remember, C-i=TAB, C-m=RET, avoid "?"
 
 
 (require 'cua-base)
@@ -190,8 +190,13 @@ If no argument given, copy 1 char."
 
 
 (defun bodhi-prepare-for-ibuffer ()
-  ; use <space> to go down. i is enough =)
+  ; use <space> to go down. i is enough
   (define-key ibuffer-mode-map (kbd "i") 'ibuffer-backward-line))
+
+
+(defun bodhi-prepare-for-dired ()
+  ; use <space> to go down. i is enough
+  (define-key dired-mode-map  (kbd "i") 'dired-previous-line))
 
 
 (defun bodhi-prepare-for-isearch ()
@@ -219,8 +224,9 @@ If no argument given, copy 1 char."
 (add-hook 'minibuffer-exit-hook  'bodhi-leave-minibuffer)
 (add-hook 'activate-mark-hook    'bodhi-activate-selection-state)
 (add-hook 'activate-mark-hook    'bodhi-deactivate-selection-state)
-(add-hook 'ibuffer-hook     'bodhi-prepare-for-ibuffer)
-(add-hook 'isearch-mode-hook 'bodhi-prepare-for-isearch)
+(add-hook 'ibuffer-hook          'bodhi-prepare-for-ibuffer)
+(add-hook 'isearch-mode-hook     'bodhi-prepare-for-isearch)
+(add-hook 'dired-mode-hook       'bodhi-prepare-for-dired)
 
 ; ---- normal-state ------------------
 

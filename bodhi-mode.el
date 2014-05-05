@@ -1,23 +1,15 @@
 ;; todo : document a bit --> info
-;;       - require 'bodhi -> global minor mode
-;;       - M spc then alias. TODO : more aliases
-;;       - use selection to perform anything complicated
-;;       - use ijkl paddle plus its u/o extension.
-;;              Backspace backs, s-backspace forward
-;;              Control stands for... "control", ie move point...
-;;              Alt stands for ... "Alter"!, ie change things.
-;;            This conflicts with ^o open file !
-;;            todo : test hm but need something for return
-;;            && help
-;;       - More TODO : ibuffer, dired, org. NOT : maggit, ...
-;;       - 
+;;
+;;    (require 'bodhi) -> global minor mode
+;;    This conflicts with ^o open file.
+;;    This conflicts with ^c c to capture.
+;;    TAB is not available. Well it goes previous line.
+;;
+;;    TODO : ibuffer, dired, org. NOT : maggit, ...
 
 ;; is there a way to have a layout? -> ergoEmacs
 ; note on keys: ^i=TAB, ^m=RET, avoid ? ^h ^[
 
-
-;; ^w ^t : close frame, new frame
-;; page
 
 (require 'cua-base)
 (require 'rect)
@@ -100,17 +92,13 @@ If no argument given, copy 1 char."
 (defun bodhi-search-foward ()
  (interactive)
  (isearch-forward-regexp)
- (bodhi-add-selection-keymap)
-)
+ (bodhi-add-selection-keymap))
 
 
 (defun bodhi-search-backward ()
  (interactive)
  (isearch-backward-regexp)
- (bodhi-add-selection-keymap)
-)
-
-
+ (bodhi-add-selection-keymap))
 
 
 
@@ -120,8 +108,7 @@ If no argument given, copy 1 char."
   (interactive)
   (if cua--rectangle
     (cua-insert-char-rectangle 32) ;SPC
-    (keyboard-quit))
-)
+    (keyboard-quit)))
 
 
 (defun bodhi-enf-of-line ()
@@ -135,7 +122,6 @@ If no argument given, copy 1 char."
   (interactive)
   (if (= (point) (progn (back-to-indentation) (point)))
     (beginning-of-line)))
-
 
 
 ; ---- selection-state ---------------
@@ -226,8 +212,8 @@ If no argument given, copy 1 char."
 (define-key bodhi-normal-state-map (kbd "C-q") 'bodhi-quit-or-leave);; quit or leave emacs
 (define-key bodhi-normal-state-map (kbd "M-q") 'quoted-insert) ;; eg for $...
 (define-key bodhi-normal-state-map (kbd "C-z") 'undo)
-(define-key bodhi-normal-state-map (kbd "C-w") 'kill-buffer)
-(define-key bodhi-normal-state-map (kbd "C-t") 'make-frame-command)
+(define-key bodhi-normal-state-map (kbd "C-w") 'delete-window)
+(define-key bodhi-normal-state-map (kbd "C-t") 'split-window-right)
 
 (define-key bodhi-normal-state-map (kbd "C-x C-s") nil)
 (define-key bodhi-normal-state-map (kbd "C-s") 'save-buffer)
@@ -250,6 +236,7 @@ If no argument given, copy 1 char."
 (define-key bodhi-normal-state-map (kbd "C-x o") 'kill-word)
 (define-key bodhi-normal-state-map (kbd "C-x u") 'backward-kill-word)
 (define-key bodhi-normal-state-map (kbd "C-x $") 'kill-line)
+
 
 (define-key bodhi-normal-state-map (kbd "C-<backspace>") 'backward-word)
 (define-key bodhi-normal-state-map (kbd "M-<backpsace>") 'backward-kill-word)

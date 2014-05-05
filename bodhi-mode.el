@@ -42,8 +42,6 @@
 (defalias 'q       'save-buffers-kill-terminal)
 (defalias 'vs      'split-window-right)
 
-
-
 ; ---- commands ----------------------
  
 
@@ -263,7 +261,17 @@ If no argument given, copy 1 char."
 (define-key bodhi-normal-state-map (kbd "C-e") 'bodhi-copy-from-above)
 
 (define-minor-mode bodhi-mode 
- "Enlighten your keyboard"
+ "Enlighten your keyboard.
+  __ THIS IS A WORK IN PROGRESS. THIS KILLS BABIES __
+  Bodhi amends keymap at several places
+  - Use C-i C-k to go up down. j and l for right.
+    '^' does move and 'alt' does amend (kill).
+    Similarly, use u o for words.
+  - Basic operators: ^x x cuts line and ^c c copy line.
+  - Some more cua : ^f to find, ^v to cua-paste...
+  - When region is selected, do not use modifiers to move.
+    Use vim like moves, then x to cut region or c to copy
+  - Some aliases are defined, like wq to save then exit"
  :lighter bdh
  :global  t
  :keymap bodhi-normal-state-map)

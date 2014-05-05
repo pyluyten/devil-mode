@@ -278,6 +278,8 @@ If no argument given, copy 1 char."
 ; ^ s backspace = kill whole line
 
 (define-key bodhi-normal-state-map (kbd "²") 'ibuffer)
+(define-key bodhi-normal-state-map (kbd "<backtab>") 'next-buffer)
+
 (define-key bodhi-normal-state-map (kbd "C-e") 'bodhi-copy-from-above)
 
 (define-minor-mode bodhi-mode 

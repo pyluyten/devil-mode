@@ -77,7 +77,7 @@ If no argument given, copy 1 char."
 (defun bodhi-backward-kill-line ()
   "Kill ARG lines backward."
   (interactive)
-  (kill-line (- 1)))
+  (kill-line (- 0)))
 
 
 (defun bodhi-new-empty-buffer ()
@@ -226,6 +226,7 @@ If no argument given, copy 1 char."
 
 
 (define-key bodhi-normal-state-map (kbd "M-<SPC>") 'execute-extended-command)
+(define-key bodhi-normal-state-map (kbd "C-:") 'execute-extended-command)
 
 (define-key bodhi-normal-state-map (kbd "C-i") 'previous-line)
 (define-key bodhi-normal-state-map (kbd "C-j") 'backward-char)

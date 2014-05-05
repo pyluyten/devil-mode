@@ -257,7 +257,7 @@ If no argument given, copy 1 char."
 
 (define-key bodhi-normal-state-map (kbd "C-x C-s") nil)
 (define-key bodhi-normal-state-map (kbd "C-s") 'save-buffer)
-(define-key bodhi-normal-state-map (kbd "C-n") 'bodhi-new)
+(define-key bodhi-normal-state-map (kbd "C-n") 'bodhi-new-empty-buffer)
 
 (define-key bodhi-normal-state-map (kbd "C-f") 'isearch-forward)
 (define-key bodhi-normal-state-map (kbd "M-f") 'isearch-forward-regexp)

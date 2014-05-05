@@ -230,7 +230,7 @@ If no argument given, copy 1 char."
 
 ; ---- normal-state ------------------
 
-
+; essential navigation and commands
 (define-key bodhi-normal-state-map (kbd "M-<SPC>") 'execute-extended-command)
 (define-key bodhi-normal-state-map (kbd "C-:") 'execute-extended-command)
 
@@ -284,10 +284,22 @@ If no argument given, copy 1 char."
 (define-key bodhi-normal-state-map (kbd "M-S-<backspace>") 'kill-word)
 ; ^ s backspace = kill whole line
 
+
+
+
+;  ---------- additional edition features -------------------
+
+(define-key bodhi-normal-state-map (kbd "C-e") 'bodhi-copy-from-above)
+(define-key bodhi-normal-state-map (kbd "M-m") 'newline-and-indent)
+
+; ----------- others ------------------------------------------
+
 (define-key bodhi-normal-state-map (kbd "²") 'ibuffer)
 (define-key bodhi-normal-state-map (kbd "<backtab>") 'next-buffer)
 
-(define-key bodhi-normal-state-map (kbd "C-e") 'bodhi-copy-from-above)
+
+
+
 
 (define-minor-mode bodhi-mode 
  "Enlighten your keyboard.

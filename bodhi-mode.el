@@ -33,6 +33,7 @@
 (defalias 'w       'save-buffer)
 (defalias 'q       'save-buffers-kill-terminal)
 (defalias 'vs      'split-window-right)
+(defalias 'e!      'revert-buffer)
 
 ; ---- commands ----------------------
  

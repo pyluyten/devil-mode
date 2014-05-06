@@ -149,6 +149,28 @@ If no argument given, copy 1 char."
 
 ;; todo : create another buffer to prompt, rather than this awful draft
 
+(defun bodhi-prompt-replace ()
+  (interactive)
+  (print "i=backward, k=forward, j=reg backward, k=reg forward")
+  (bodhi-replace)
+)
+
+
+(defun bodhi-replace ()
+ (interactive)
+  (setq bodhi-replace-map (make-sparse-keymap))
+  (define-key bodhi-replace-map (kbd "r") 'query-replace-regexp)
+
+  (define-key bodhi-replace-map (kbd "i") 'query-replace)
+  (define-key bodhi-replace-map (kbd "k") 'query-replace-regexp)
+  (define-key bodhi-replace-map (kbd "j") 'replace-string)
+  (define-key bodhi-replace-map (kbd "l") 'replace-regexp)
+  (define-key bodhi-replace-map (kbd "?") 'bodhi-prompt-replace)
+
+  (set-temporary-overlay-map bodhi-replace-map t)
+)
+
+
 (defun bodhi-prompt-find ()
  (interactive)
  (print "i=search bacwkard, k=search forward, j=regexp backward, l=regex forward")
@@ -286,6 +308,7 @@ If no argument given, copy 1 char."
 
 (define-key bodhi-normal-state-map (kbd "C-f") 'bodhi-find)
 (define-key bodhi-normal-state-map (kbd "M-f") 'regexp-builder)
+(define-key bodhi-normal-state-map (kbd "C-r") 'bodhi-replace)
 (define-key bodhi-normal-state-map (kbd "C-v") 'cua-paste)
 
 (define-key bodhi-normal-state-map (kbd "$")   'end-of-line)

@@ -42,7 +42,7 @@
 (defalias 'bj      'bookmark-jump)
 
 ; ---- commands ----------------------
- 
+
 
 (defun bodhi-copy-from-above (&optional arg)
   "Copy characters from previous nonblank line, starting just above point.
@@ -199,6 +199,21 @@ If no argument given, copy 1 char."
 )
 
 
+(defun bodhi-join-next-line () (interactive) (join-line 1))
+
+
+(defun bodhi-function-editor ()
+  (interactive)
+  (setq bodhi-editor-map (make-sparse-keymap))
+
+  (define-key bodhi-editor-map (kbd "j") 'bodhi-join-next-line)
+  (define-key bodhi-editor-map (kbd "J") 'join-line)
+
+  (set-temporary-overlay-map bodhi-editor-map t)
+)
+
+
+
 
 ; ---- selection-state ---------------
 
@@ -329,7 +344,7 @@ If no argument given, copy 1 char."
 
 ;; cua + nilliy std keys.
 
-(define-key bodhi-normal-state-map (kbd "C-q") 'bodhi-quit-or-leave);; quit or leave emacs
+(define-key bodhi-normal-state-map (kbd "C-q") 'keyboard-quit)
 (define-key bodhi-normal-state-map (kbd "M-q") 'quoted-insert) ;; eg for $...
 (define-key bodhi-normal-state-map (kbd "C-z") 'undo)
 (define-key bodhi-normal-state-map (kbd "C-w") 'delete-window)
@@ -345,7 +360,12 @@ If no argument given, copy 1 char."
 (define-key bodhi-normal-state-map (kbd "C-v") 'cua-paste)
 
 
+; ----------- function keys ----------------------------------
+; F1 , F2 , F3 macro, F4 macro stop/exe
 
+; F5 or , = editor
+(define-key bodhi-normal-state-map (kbd "C-,")  'bodhi-function-editor)
+(define-key bodhi-normal-state-map (kbd "<F5>") 'bodhi-function-editor)
 
 
 ;  ---------- additional edition features -------------------

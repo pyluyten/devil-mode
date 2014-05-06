@@ -364,7 +364,7 @@ If no argument given, copy 1 char."
 ; F1 , F2 , F3 macro, F4 macro stop/exe
 
 ; F5 or , = editor
-(define-key bodhi-normal-state-map (kbd "C-,")  'bodhi-function-editor)
+(define-key bodhi-normal-state-map (kbd "M-e")  'bodhi-function-editor)
 (define-key bodhi-normal-state-map (kbd "<F5>") 'bodhi-function-editor)
 
 

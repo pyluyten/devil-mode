@@ -89,7 +89,6 @@ If no argument given, copy 1 char."
     (funcall (and initial-major-mode))
     (setq buffer-offer-save t)))
 
-
 (defun bodhi-search-foward ()
  (interactive)
  (isearch-forward-regexp)
@@ -146,6 +145,31 @@ If no argument given, copy 1 char."
     (kill-append "\n" nil)
     (beginning-of-line (or (and arg (1+ arg)) 2))
     (if (and arg (not (= 1 arg))) (message "%d lines copied" arg)))
+
+
+;; todo : create another buffer to prompt, rather than this awful draft
+
+(defun bodhi-prompt-find ()
+ (interactive)
+ (print "i=search bacwkard, k=search forward, j=regexp backward, l=regex forward")
+ (bodhi-find)
+)
+
+
+(defun bodhi-find ()
+ (interactive)
+  (setq bodhi-find-map (make-sparse-keymap))
+  (define-key bodhi-find-map (kbd "f") 'isearch-forward)
+
+  (define-key bodhi-find-map (kbd "i") 'isearch-backward)
+  (define-key bodhi-find-map (kbd "k") 'isearch-forward)
+  (define-key bodhi-find-map (kbd "j") 'isearch-forward-regexp)
+  (define-key bodhi-find-map (kbd "l") 'isearch-backward-regexp)
+  (define-key bodhi-find-map (kbd "?") 'bodhi-prompt-find)
+
+  (set-temporary-overlay-map bodhi-find-map t)
+)
+
 
 
 ; ---- selection-state ---------------
@@ -260,8 +284,8 @@ If no argument given, copy 1 char."
 (define-key bodhi-normal-state-map (kbd "C-s") 'save-buffer)
 (define-key bodhi-normal-state-map (kbd "C-n") 'bodhi-new-empty-buffer)
 
-(define-key bodhi-normal-state-map (kbd "C-f") 'isearch-forward)
-(define-key bodhi-normal-state-map (kbd "M-f") 'isearch-forward-regexp)
+(define-key bodhi-normal-state-map (kbd "C-f") 'bodhi-find)
+(define-key bodhi-normal-state-map (kbd "M-f") 'regexp-builder)
 (define-key bodhi-normal-state-map (kbd "C-v") 'cua-paste)
 
 (define-key bodhi-normal-state-map (kbd "$")   'end-of-line)

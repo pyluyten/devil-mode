@@ -7,6 +7,8 @@
 ;;
 ;;    TODO : org-mode. EXCLUDE : maggit, ...
 ;;    TODO : mode-dependant cursor
+;;    TODO : folding, bookmarks, join
+;;    MAYBE: ^g for "global" (buffer,...)
 ;;
 ;;    Remember, C-i=TAB, C-m=RET, avoid "?"
 
@@ -26,6 +28,8 @@
 
 ; ---- aliases -----------------------
 
+; FIXME: rather we want a .alias file user could investigate
+;        and customize.
 
 (defalias 'bdh     'bodhi-mode)
 (defalias 'one     'delete-other-windows)
@@ -34,6 +38,8 @@
 (defalias 'q       'save-buffers-kill-terminal)
 (defalias 'vs      'split-window-right)
 (defalias 'e!      'revert-buffer)
+(defalias 'bk      'bookmark-set)
+(defalias 'bj      'bookmark-jump)
 
 ; ---- commands ----------------------
  
@@ -296,6 +302,33 @@ If no argument given, copy 1 char."
 (define-key bodhi-normal-state-map (kbd "C-o") 'forward-word)
 (define-key bodhi-normal-state-map (kbd "M-o") 'kill-word)
 
+(define-key bodhi-normal-state-map (kbd "$")   'end-of-line)
+(define-key bodhi-normal-state-map (kbd "C-$") 'end-of-line)
+(define-key bodhi-normal-state-map (kbd "M-$") 'kill-line)
+
+(define-key bodhi-normal-state-map (kbd "C-à") 'beginning-of-line)
+(define-key bodhi-normal-state-map (kbd "C-^") 'beginning-of-line)
+(define-key bodhi-normal-state-map (kbd "M-à") 'bodhi-backward-kill-line)
+
+
+(define-key bodhi-normal-state-map (kbd "C-<backspace>") 'backward-word)
+(define-key bodhi-normal-state-map (kbd "M-<backpsace>") 'backward-kill-word)
+(define-key bodhi-normal-state-map (kbd "S-<backspace>") 'forward-word)
+(define-key bodhi-normal-state-map (kbd "M-S-<backspace>") 'kill-word)
+; ^ s backspace = kill whole line
+
+
+;; somewhat cua : operator -> motion 
+
+(define-key bodhi-normal-state-map (kbd "C-c c") 'bodhi-copy-line)
+(define-key bodhi-normal-state-map (kbd "C-x x") 'kill-whole-line)
+(define-key bodhi-normal-state-map (kbd "C-x o") 'kill-word)
+(define-key bodhi-normal-state-map (kbd "C-x u") 'backward-kill-word)
+(define-key bodhi-normal-state-map (kbd "C-x $") 'kill-line)
+
+
+;; cua + nilliy std keys.
+
 (define-key bodhi-normal-state-map (kbd "C-q") 'bodhi-quit-or-leave);; quit or leave emacs
 (define-key bodhi-normal-state-map (kbd "M-q") 'quoted-insert) ;; eg for $...
 (define-key bodhi-normal-state-map (kbd "C-z") 'undo)
@@ -311,26 +344,6 @@ If no argument given, copy 1 char."
 (define-key bodhi-normal-state-map (kbd "C-r") 'bodhi-replace)
 (define-key bodhi-normal-state-map (kbd "C-v") 'cua-paste)
 
-(define-key bodhi-normal-state-map (kbd "$")   'end-of-line)
-(define-key bodhi-normal-state-map (kbd "C-$") 'end-of-line)
-(define-key bodhi-normal-state-map (kbd "M-$") 'kill-line)
-
-(define-key bodhi-normal-state-map (kbd "C-à") 'beginning-of-line)
-(define-key bodhi-normal-state-map (kbd "C-^") 'beginning-of-line)
-(define-key bodhi-normal-state-map (kbd "M-à") 'bodhi-backward-kill-line)
-
-(define-key bodhi-normal-state-map (kbd "C-c c") 'bodhi-copy-line)
-(define-key bodhi-normal-state-map (kbd "C-x x") 'kill-whole-line)
-(define-key bodhi-normal-state-map (kbd "C-x o") 'kill-word)
-(define-key bodhi-normal-state-map (kbd "C-x u") 'backward-kill-word)
-(define-key bodhi-normal-state-map (kbd "C-x $") 'kill-line)
-
-
-(define-key bodhi-normal-state-map (kbd "C-<backspace>") 'backward-word)
-(define-key bodhi-normal-state-map (kbd "M-<backpsace>") 'backward-kill-word)
-(define-key bodhi-normal-state-map (kbd "S-<backspace>") 'forward-word)
-(define-key bodhi-normal-state-map (kbd "M-S-<backspace>") 'kill-word)
-; ^ s backspace = kill whole line
 
 
 

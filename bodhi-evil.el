@@ -51,17 +51,26 @@ AKA Cua Paddle state."
 (evil-set-initial-state 'org-mode        'bodhi)
 (evil-set-initial-state 'cc-mode         'bodhi)
 (evil-set-initial-state 'text-mode       'bodhi)
+(evil-set-initial-state 'fundamental-mode 'bodhi)
 
 
 
 
 ; ------------------ some commands i need -------------
 
+; TODO : move everything into a bodhi-commands.el
+
 (defun bodhi-backward-kill-line ()
   "Kill ARG lines backward."
   (interactive)
   (kill-line (- 0)))
 
+
+
+(defun bodhi-yank-end-of-line ()
+  "Copy up to end of line."
+  (interactive)
+  (kill-ring-save (point) (line-beginning-position 2)))
 
 (defun bodhi-new-empty-buffer ()
   "Opens a new empty buffer."
@@ -73,32 +82,38 @@ AKA Cua Paddle state."
 
 
 (defun bodhi-select-forward-word ()
+  "Select forward word."
  (interactive)
  (evil-visual-char)
  (evil-forward-word))
 
 (defun bodhi-select-forward-char ()
+  "Select forward char."
  (interactive)
  (evil-visual-char)
  (evil-forward-char))
 
 
 (defun bodhi-select-backward-char ()
+  "Select backward char."
  (interactive)
  (evil-visual-char)
  (evil-backward-char))
 
 (defun bodhi-select-backward-line ()
+  "Select backward line."
  (interactive)
  (evil-visual-char)
  (evil-beginning-of-line))
 
 (defun bodhi-select-previous-line ()
+  "Select previous line."
  (interactive)
  (evil-visual-char)
  (evil-previous-line))
 
 (defun bodhi-select-next-line ()
+  "Select next line."
   (interactive)
  (evil-visual-char)
  (evil-next-line)
@@ -106,6 +121,7 @@ AKA Cua Paddle state."
 
 
 (defun bodhi-select-forward-line ()
+  "Select forward line."
  (interactive)
  (evil-visual-char)
  (end-of-line))
@@ -113,6 +129,7 @@ AKA Cua Paddle state."
 
 
 (defun bodhi-prompt-replace ()
+  "Prompt for which \"replace\" to run."
   (interactive)
   (print "i=backward, k=forward, j=reg backward, k=reg forward")
   (bodhi-replace)
@@ -120,6 +137,7 @@ AKA Cua Paddle state."
 
 
 (defun bodhi-replace ()
+  "Replace. This function offers several ways."
  (interactive)
   (setq bodhi-replace-map (make-sparse-keymap))
   (define-key bodhi-replace-map (kbd "r") 'query-replace-regexp)
@@ -149,10 +167,12 @@ AKA Cua Paddle state."
   (define-key ibuffer-mode-map (kbd "i") 'ibuffer-backward-line))
 
 (defun bodhi-prepare-for-minibuffer ()
+  "Restore tab for completion."
   (define-key evil-bodhi-state-map (kbd "C-i") 'minibuffer-complete))
 
 
 (defun bodhi-leave-minibuffer ()
+  "Restore tab for previous."
   (define-key evil-bodhi-state-map (kbd "C-i") 'previous-line))
 
 (defun bodhi-prepare-for-dired ()
@@ -168,26 +188,28 @@ AKA Cua Paddle state."
 
 
 
-; ------------------ switches --------------------------
-
-
-(defun bodhi-quit ()
- (interactive)
- (setq bodhi-quit-map (make-sparse-keymap))
- (define-key bodhi-quit-map (kbd "q") 'evil-normal-state)
- (define-key bodhi-quit-map (kbd "C-q") 'evil-mode)
- (set-temporary-overlay-map bodhi-quit-map ))
-
-
+; ------------------ switches from bodhi-state ---------------------
 
 (define-key evil-bodhi-state-map (kbd "C-<SPC>") 'evil-visual-char)
-(define-key evil-bodhi-state-map (kbd "C-q")   'bodhi-quit)
+(define-key evil-bodhi-state-map (kbd "S-<SPC>")   'evil-normal-state)
+
+
+; ------------------ normal-state almost unchanged ----
+
 (define-key evil-normal-state-map (kbd "<RET>")  'evil-bodhi-state)
+(define-key evil-normal-state-map (kbd "S-<SPC>") 'evil-bodhi-state)
+
+; swap i and h
+(define-key evil-normal-state-map (kbd "i") 'evil-previous-line)
+(define-key evil-normal-state-map (kbd "I") 'evil-window-top)
+(define-key evil-normal-state-map (kbd "h") 'evil-insert)
+(define-key evil-normal-state-map (kbd "H") 'evil-insert-line)
 
 ; ------------------ selections ------------------------
 
 (define-key evil-visual-state-map (kbd "<SPC>") 'evil-bodhi-state)
 (define-key evil-visual-state-map (kbd "<ESC>") 'evil-bodhi-state)
+(define-key evil-visual-state-map (kbd "S-<SPC>") 'evil-normal-state)
 
 (define-key evil-visual-state-map (kbd "l") 'forward-char)
 (define-key evil-visual-state-map (kbd "i") 'previous-line)

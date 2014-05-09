@@ -1,16 +1,35 @@
 
 
-(defun bodhi-prompt (&optional message)
+(defun bodhi-prompt (&optional title message)
  (interactive)
- (unless message (setq message "Enter:"))
- (setq x (read-char-exclusive message)))
+ (setq curb (current-buffer))
+ (unless title (setq title "Enter:"))
+ (setq buf (generate-new-buffer title))
+ (view-buffer-other-window buf)
+ (funcall (and initial-major-mode))
+ (setq message
+   (concat "~~~ BODHI ~~~\n"
+           "\n\n\n\n"
+           message)
+ (insert message)
+ (setq x (read-char-exclusive))
+ (quit-window)
+ (kill-buffer buf)
+ (switch-to-buffer curb)
+ (setq x x))
 
 
 
 (defun bodhi-find-prompt ()
   (interactive)
-  (setq c (bodhi-prompt "Search: f/r i/j/k/l ?"))
-  (print (format "ur key is %s" c))
+  (setq c (bodhi-prompt "Search"
+   (concat "f: isearch-forward\n"
+           "r: isearch-backward\n\n"
+           "i: isearch-backward\n"
+           "j: isearch-backward-regexp\n"
+           "k: isearch-forward\n"
+           "l: isearch-forward-regexp")
+  ))
   (cond
    ((eq c 102) ;f
     (isearch-forward))
@@ -25,8 +44,7 @@
    ((eq c 108) ; l
     (isearch-forward-regexp))
    (t
-    (bodhi-find-prompt))))
-
+    (keyboard-quit))))
 
 
 (provide 'bodhi-prompts)

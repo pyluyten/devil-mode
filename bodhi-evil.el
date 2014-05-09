@@ -330,6 +330,10 @@ AKA Cua Paddle state."
 (define-key evil-bodhi-state-map (kbd "C-g l") 'other-window)
 
 
+(define-key evil-bodhi-state-map (kbd "C-g n") 'evil-normal-state)
+(define-key evil-bodhi-state-map (kbd "C-g v") 'evil-visual-line)
+(define-key evil-bodhi-state-map (kbd "C-g C-v") 'evil-visual-block)
+
 
 
 

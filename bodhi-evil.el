@@ -281,7 +281,7 @@ AKA Cua Paddle state."
 
 ;; cua + nilliy std keys.
  
-;(define-key evil-bodhi-state-map (kbd "C-q") 'keyboard-quit)
+(define-key evil-bodhi-state-map (kbd "C-q") 'keyboard-quit)
 (define-key evil-bodhi-state-map (kbd "M-q") 'quoted-insert) ;; eg for $...
 (define-key evil-bodhi-state-map (kbd "C-z") 'undo)
 (define-key evil-bodhi-state-map (kbd "C-w") 'delete-window)

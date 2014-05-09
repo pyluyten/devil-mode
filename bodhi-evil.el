@@ -317,6 +317,17 @@ AKA Cua Paddle state."
 
 (define-key evil-bodhi-state-map (kbd "²") 'ibuffer)
 (define-key evil-bodhi-state-map (kbd "<backtab>") 'next-buffer)
+(define-key evil-bodhi-state-map (kbd "C-<prior>") 'previous-buffer) ;; page down
+(define-key evil-bodhi-state-map (kbd "C-<next>") 'previous-buffer) ;; page up
+
+
+; "global"l
+(define-prefix-command 'g-map)
+(define-key evil-bodhi-state-map (kbd "C-g") 'g-map)
+(define-key evil-bodhi-state-map (kbd "C-g i") 'beginning-of-buffer)
+(define-key evil-bodhi-state-map (kbd "C-g k") 'end-of-buffer)
+(define-key evil-bodhi-state-map (kbd "C-g j") 'next-buffer)
+(define-key evil-bodhi-state-map (kbd "C-g l") 'other-window)
 
 
 

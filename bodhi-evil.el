@@ -72,6 +72,45 @@ AKA Cua Paddle state."
     (setq buffer-offer-save t)))
 
 
+(defun bodhi-select-forward-word ()
+ (interactive)
+ (evil-visual-char)
+ (evil-forward-word))
+
+(defun bodhi-select-forward-char ()
+ (interactive)
+ (evil-visual-char)
+ (evil-forward-char))
+
+
+(defun bodhi-select-backward-char ()
+ (interactive)
+ (evil-visual-char)
+ (evil-backward-char))
+
+(defun bodhi-select-backward-line ()
+ (interactive)
+ (evil-visual-char)
+ (evil-beginning-of-line))
+
+(defun bodhi-select-previous-line ()
+ (interactive)
+ (evil-visual-char)
+ (evil-previous-line))
+
+(defun bodhi-select-next-line ()
+  (interactive)
+ (evil-visual-char)
+ (evil-next-line)
+)
+
+
+(defun bodhi-select-forward-line ()
+ (interactive)
+ (evil-visual-char)
+ (end-of-line))
+
+
 
 (defun bodhi-prompt-replace ()
   (interactive)
@@ -178,45 +217,6 @@ AKA Cua Paddle state."
 
 
 ; selecting from bodhi mode
-
-
-(defun bodhi-select-forward-word ()
- (interactive)
- (evil-visual-char)
- (evil-forward-word))
-
-(defun bodhi-select-forward-char ()
- (interactive)
- (evil-visual-char)
- (evil-forward-char))
-
-
-(defun bodhi-select-backward-char ()
- (interactive)
- (evil-visual-char)
- (evil-backward-char))
-
-(defun bodhi-select-backward-line ()
- (interactive)
- (evil-visual-char)
- (evil-beginning-of-line))
-
-(defun bodhi-select-previous-line ()
- (interactive)
- (evil-visual-char)
- (evil-previous-line))
-
-(defun bodhi-select-next-line ()
-  (interactive)
- (evil-visual-char)
- (evil-next-line)
-)
-
-
-(defun bodhi-select-forward-line ()
- (interactive)
- (evil-visual-char)
- (end-of-line))
 
 (define-key evil-bodhi-state-map (kbd "C-S-K")        'bodhi-select-next-line)
 (define-key evil-bodhi-state-map (kbd "C-S-J")        'bodhi-select-backward-char)

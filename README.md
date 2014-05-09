@@ -66,6 +66,20 @@
   - bodhi-mode should depend on selection+prompts+aliases
     and implement its paddle keymap.
 
-    Optionnaly, details-mode can be added to have a consistent
-    evil based editor on top of it if needed.
-    But bodhi-mode should not depend on it.
+
+  Yesterday I tried ErgoEmacs. But mapping tab (for C-i) is broken.
+  Plus, it has less documentation.
+
+  Current: bodhi-evil-mode is an evil-mode state implementing
+  the paddle. Selections are currently handled with classic
+  visual state.
+  The most uggly part of it : Bodhi global minor mode cannot force
+  evil to switch to bodhi-state while enabled. => manually
+  evil-set-initial-state for most common major modes. Uh!
+  But appart from this, we're good with a good selecting feature.
+  This drawback if allright because re-implementing evil work
+  on keymaps not necessarily what I want to do here. Seriously.
+
+  I still to have to implement blocks.
+  Prompts and aliases still todo. But at least it seems I have
+  a start.

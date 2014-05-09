@@ -138,6 +138,7 @@ AKA Cua Paddle state."
   ; use <space> to go down. i is enough
   (define-key dired-mode-map  (kbd "i") 'dired-previous-line))
 
+
 (add-hook 'minibuffer-setup-hook 'bodhi-prepare-for-minibuffer)
 (add-hook 'minibuffer-exit-hook  'bodhi-leave-minibuffer)
 (add-hook 'ibuffer-hook          'bodhi-prepare-for-ibuffer)
@@ -161,7 +162,6 @@ AKA Cua Paddle state."
 (define-key evil-bodhi-state-map (kbd "C-<SPC>") 'evil-visual-char)
 (define-key evil-bodhi-state-map (kbd "C-q")   'bodhi-quit)
 (define-key evil-normal-state-map (kbd "<RET>")  'evil-bodhi-state)
-
 
 ; ------------------ selections ------------------------
 
@@ -198,14 +198,57 @@ AKA Cua Paddle state."
 ; selecting from bodhi mode
 
 
-(defun bodhi-select-forward ()
+(defun bodhi-select-forward-word ()
  (interactive)
  (evil-visual-char)
  (evil-forward-word))
 
+(defun bodhi-select-forward-char ()
+ (interactive)
+ (evil-visual-char)
+ (evil-forward-char))
 
-(define-key evil-bodhi-state-map (kbd "C-L")        'bodhi-select-forward)
+
+(defun bodhi-select-backward-char ()
+ (interactive)
+ (evil-visual-char)
+ (evil-backward-char))
+
+(defun bodhi-select-backward-line ()
+ (interactive)
+ (evil-visual-char)
+ (evil-beginning-of-line))
+
+(defun bodhi-select-previous-line ()
+ (interactive)
+ (evil-visual-char)
+ (evil-previous-line))
+
+(defun bodhi-select-next-line ()
+  (interactive)
+ (evil-visual-char)
+ (evil-next-line)
+)
+
+
+(defun bodhi-select-forward-line ()
+ (interactive)
+ (evil-visual-char)
+ (end-of-line))
+
+(define-key evil-bodhi-state-map (kbd "C-S-K")        'bodhi-select-next-line)
+(define-key evil-bodhi-state-map (kbd "C-S-J")        'bodhi-select-backward-char)
+; below work only once since tab does exchange point & mark. Might be fine enough.
+(define-key evil-bodhi-state-map (kbd "C-S-I")        'bodhi-select-previous-line)
+(define-key evil-bodhi-state-map (kbd "C-S-O")        'bodhi-select-forward-word)
+(define-key evil-bodhi-state-map (kbd "C-S-L")        'bodhi-select-forward-char)
+(define-key evil-bodhi-state-map (kbd "S-<end>")    'bodhi-select-forward-line)
+(define-key evil-bodhi-state-map (kbd "S-<orig>") 'bodhi-select-backward-line)
+
+; S-$ does not work without layout support
+
 (define-key evil-bodhi-state-map (kbd "C-<SPC>")    'evil-visual-char)
+
 
 ; ------------------ insert     -------------------------
 

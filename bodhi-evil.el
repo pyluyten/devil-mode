@@ -33,7 +33,7 @@
 (evil-define-state bodhi
   "Bodhi state.
 AKA Cua Paddle state."
-  :tag " <B> "
+  :tag " <b> "
   ;:enable (motion)
   :cursor (bar . 2)
   :message "-- EDIT --"
@@ -45,6 +45,10 @@ AKA Cua Paddle state."
 ; I can still override about everything but not sure
 ; how this will work... well...
 (evil-set-initial-state 'emacs-lisp-mode 'bodhi)
+(evil-set-initial-state 'org-mode        'bodhi)
+(evil-set-initial-state 'cc-mode         'bodhi)
+(evil-set-initial-state 'text-mode       'bodhi)
+
 
 
 
@@ -109,8 +113,99 @@ AKA Cua Paddle state."
 )
 
 
+
+; ------------------ hooks ---------------------------
+
+
+(defun bodhi-prepare-for-isearch ()
+  (define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
+  (define-key isearch-mode-map (kbd "C-r") 'isearch-repeat-backward)
+  (define-key isearch-mode-map (kbd "C-j") 'isearch-repeat-backward)
+)
+
+(defun bodhi-prepare-for-ibuffer ()
+  ; use <space> to go down. i is enough
+  (define-key ibuffer-mode-map (kbd "i") 'ibuffer-backward-line))
+
+(defun bodhi-prepare-for-minibuffer ()
+  (define-key evil-bodhi-state-map (kbd "C-i") 'minibuffer-complete))
+
+
+(defun bodhi-leave-minibuffer ()
+  (define-key evil-bodhi-state-map (kbd "C-i") 'previous-line))
+
+(defun bodhi-prepare-for-dired ()
+  ; use <space> to go down. i is enough
+  (define-key dired-mode-map  (kbd "i") 'dired-previous-line))
+
+(add-hook 'minibuffer-setup-hook 'bodhi-prepare-for-minibuffer)
+(add-hook 'minibuffer-exit-hook  'bodhi-leave-minibuffer)
+(add-hook 'ibuffer-hook          'bodhi-prepare-for-ibuffer)
+(add-hook 'isearch-mode-hook     'bodhi-prepare-for-isearch)
+(add-hook 'dired-mode-hook       'bodhi-prepare-for-dired)
+
+
+
+; ------------------ switches --------------------------
+
+
+(defun bodhi-quit ()
+ (interactive)
+ (setq bodhi-quit-map (make-sparse-keymap))
+ (define-key bodhi-quit-map (kbd "q") 'evil-normal-state)
+ (define-key bodhi-quit-map (kbd "C-q") 'evil-mode)
+ (set-temporary-overlay-map bodhi-quit-map ))
+
+
+
+(define-key evil-bodhi-state-map (kbd "C-<SPC>") 'evil-visual-char)
+(define-key evil-bodhi-state-map (kbd "C-q")   'bodhi-quit)
+(define-key evil-normal-state-map (kbd "<RET>")  'evil-bodhi-state)
+
+
 ; ------------------ selections ------------------------
 
+(define-key evil-visual-state-map (kbd "<SPC>") 'evil-bodhi-state)
+(define-key evil-visual-state-map (kbd "<ESC>") 'evil-bodhi-state)
+
+(define-key evil-visual-state-map (kbd "l") 'forward-char)
+(define-key evil-visual-state-map (kbd "i") 'previous-line)
+(define-key evil-visual-state-map (kbd "k") 'next-line)
+(define-key evil-visual-state-map (kbd "j") 'backward-char)
+
+(define-key evil-visual-state-map (kbd "$") 'end-of-line)
+(define-key evil-visual-state-map (kbd "0") 'beginning-of-line)
+(define-key evil-visual-state-map (kbd "à") 'beginning-of-line) ; azerty for 0
+(define-key evil-visual-state-map (kbd "^") 'evil-first-non-blank)
+(define-key evil-visual-state-map (kbd "o") 'forward-word)
+(define-key evil-visual-state-map (kbd "w") 'forward-word)
+(define-key evil-visual-state-map (kbd "u") 'backward-word)
+(define-key evil-visual-state-map (kbd "b") 'backward-word)
+
+(define-key evil-visual-state-map (kbd "s") 'bodhi-search-foward)
+(define-key evil-visual-state-map (kbd "r") 'bodhi-search-backward)
+
+(define-key evil-visual-state-map (kbd "c") 'kill-ring-save)
+(define-key evil-visual-state-map (kbd "x") 'kill-region)
+(define-key evil-visual-state-map (kbd "d") 'kill-region)
+
+(define-key evil-visual-state-map (kbd "TAB") 'exchange-point-and-mark)
+(define-key evil-visual-state-map (kbd "h k") 'describe-key)
+(define-key evil-visual-state-map (kbd "h f") 'describe-function)
+
+
+
+; selecting from bodhi mode
+
+
+(defun bodhi-select-forward ()
+ (interactive)
+ (evil-visual-char)
+ (evil-forward-word))
+
+
+(define-key evil-bodhi-state-map (kbd "C-L")        'bodhi-select-forward)
+(define-key evil-bodhi-state-map (kbd "C-<SPC>")    'evil-visual-char)
 
 ; ------------------ insert     -------------------------
 
@@ -119,7 +214,7 @@ AKA Cua Paddle state."
 (define-key evil-bodhi-state-map (kbd "C-i") 'evil-previous-line)
 (define-key evil-bodhi-state-map (kbd "C-j") 'evil-backward-char)
 (define-key evil-bodhi-state-map (kbd "C-k") 'evil-next-line)
-(define-key evil-bodhi-state-map (kbd "C-l") 'evil-forward-char)
+(define-key evil-bodhi-state-map (kbd "C-l") 'forward-char)
 
 
 (define-key evil-bodhi-state-map (kbd "M-l") 'delete-forward-char)
@@ -159,7 +254,7 @@ AKA Cua Paddle state."
 
 ;; cua + nilliy std keys.
  
-(define-key evil-bodhi-state-map (kbd "C-q") 'keyboard-quit)
+;(define-key evil-bodhi-state-map (kbd "C-q") 'keyboard-quit)
 (define-key evil-bodhi-state-map (kbd "M-q") 'quoted-insert) ;; eg for $...
 (define-key evil-bodhi-state-map (kbd "C-z") 'undo)
 (define-key evil-bodhi-state-map (kbd "C-w") 'delete-window)
@@ -171,7 +266,7 @@ AKA Cua Paddle state."
 
 (define-key evil-bodhi-state-map (kbd "C-f") 'bodhi-find)
 (define-key evil-bodhi-state-map (kbd "M-f") 'regexp-builder)
-(define-key evil-bodhi-state-map (kbd "C-r") 'bodhi-replac*e)
+(define-key evil-bodhi-state-map (kbd "C-r") 'bodhi-replace)
 (define-key evil-bodhi-state-map (kbd "C-v") 'evil-paste-after)
 
 ;  ---------- additional edition features -------------------

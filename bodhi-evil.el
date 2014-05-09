@@ -272,6 +272,8 @@ AKA Cua Paddle state."
 ;; we would somewhat need some prefix...ù*
 
 (define-key evil-bodhi-state-map (kbd "C-c c") 'evil-yank-line)
+(define-key evil-bodhi-state-map (kbd "C-c $") 'bodhi-yank-end-of-line)
+
 (define-key evil-bodhi-state-map (kbd "C-x x") 'kill-whole-line)
 (define-key evil-bodhi-state-map (kbd "C-x o") 'kill-word)
 (define-key evil-bodhi-state-map (kbd "C-x u") 'backward-kill-word)

@@ -20,7 +20,10 @@
 ;  for selections, we don't need to handle the keymaps stack ouserlves.
 ;
 
+(add-to-list 'load-path "./")
+
 (require 'evil)
+(require 'bodhi-common)
 
 
 (define-minor-mode bodhi-evil-mode
@@ -68,27 +71,6 @@ AKA Cua Paddle state."
     (funcall (and initial-major-mode))
     (setq buffer-offer-save t)))
 
-
-(defun bodhi-prompt-find ()
- (interactive)
- (print "i=search bacwkard, k=search forward, j=regexp backward, l=regex forward")
- (bodhi-find)
-)
-
-
-(defun bodhi-find ()
- (interactive)
-  (setq bodhi-find-map (make-sparse-keymap))
-  (define-key bodhi-find-map (kbd "f") 'isearch-forward)
-
-  (define-key bodhi-find-map (kbd "i") 'isearch-backward)
-  (define-key bodhi-find-map (kbd "k") 'isearch-forward)
-  (define-key bodhi-find-map (kbd "j") 'isearch-forward-regexp)
-  (define-key bodhi-find-map (kbd "l") 'isearch-backward-regexp)
-  (define-key bodhi-find-map (kbd "?") 'bodhi-prompt-find)
-
-  (set-temporary-overlay-map bodhi-find-map t)
-)
 
 
 (defun bodhi-prompt-replace ()
@@ -307,7 +289,19 @@ AKA Cua Paddle state."
 (define-key evil-bodhi-state-map (kbd "C-s") 'save-buffer)
 (define-key evil-bodhi-state-map (kbd "C-n") 'bodhi-new-empty-buffer)
 
-(define-key evil-bodhi-state-map (kbd "C-f") 'bodhi-find)
+; only find is usable. Other ^f keys are there to *document*
+(define-key evil-bodhi-state-map (kbd "C-f") 'bodhi-find-prompt)
+(global-set-key (kbd "<C-M-f>") nil)
+(global-set-key (kbd "<C-M-r>") nil)
+(define-key evil-bodhi-state-map (kbd "<C-f f>") 'isearch-forward)
+(define-key evil-bodhi-state-map (kbd "<C-f r>") 'isearch-backward)
+(define-key evil-bodhi-state-map (kbd "<C-f i>" ) 'nonincremental-search-backward)
+(define-key evil-bodhi-state-map (kbd "<C-f k>")  'nonincremental-search-forward)
+(define-key evil-bodhi-state-map (kbd "<C-f j>")  'isearch-forward-regexp)
+(define-key evil-bodhi-state-map (kbd "<C-f l>")  'isearch-backward-regexp)
+(define-key evil-bodhi-state-map (kbd "<C-f ?>")  'bodhi-prompt-find)
+
+
 (define-key evil-bodhi-state-map (kbd "M-f") 'regexp-builder)
 (define-key evil-bodhi-state-map (kbd "C-r") 'bodhi-replace)
 (define-key evil-bodhi-state-map (kbd "C-v") 'evil-paste-after)

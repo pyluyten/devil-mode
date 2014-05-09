@@ -10,7 +10,7 @@
  (setq message
    (concat "~~~ BODHI ~~~\n"
            "\n\n\n\n"
-           message)
+           message))
  (insert message)
  (setq x (read-char-exclusive))
  (quit-window)

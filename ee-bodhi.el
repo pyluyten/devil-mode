@@ -4,6 +4,9 @@
 
 (require 'ergoemacs-mode)
 
+(add-to-list 'load-path "./")
+(require 'bodhi-common)
+
 
 ; ----------- COMMANDS ---------------------
 
@@ -31,6 +34,13 @@
 
 
 ; ------------- COMPONENTS ---------------------------
+
+(ergoemacs-theme-component cua-prompters ()
+  "Use cua-inspired keys."
+  (global-set-key (kbd "C-s") 'save-buffer)
+  (global-set-key (kbd "C-f") 'bodhi-find-prompt)
+  (global-set-key (kbd "C-r") 'bodhi-replace-prompt)
+)
 
 
 (ergoemacs-theme-component operator-motion ()
@@ -76,14 +86,15 @@
 
 (ergoemacs-theme bodhi ()
   "Bodhi Ergoemacs Theme"
-  :components   '(paddle
-                  perl-motions
-                  ergoemacs-remap)
+  :components   '(cua-prompters
+                  ergoemacs-remap
+                  paddle
+                  perl-motions)
   :optional-on  '(operator-motion)
   :optional-off '(guru no-backspace)
   :options-menu '(("Extreme ErgoEmacs" (guru no-backspace)
 		   ("Operator>Motion" (operator-motion))))
 )
 
-(provide 'ergo-bodhi)
+(provide 'ee-bodhi)
 

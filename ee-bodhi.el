@@ -46,7 +46,7 @@
 ; This is not compatible with "backspace is back nor any backspace shorcuts.
 ; Since ^i stands for TAB. Which is an emacs bug (not a feature. Seriously)
   "Simple i j k l paddle."
-  (global-set-key (kbd "<tab>") 'previous-line)
+  (global-set-key (kbd "C-i") 'previous-line)
   (global-set-key (kbd "C-j") 'backward-char)
   (global-set-key (kbd "C-l") 'forward-char)
   (global-set-key (kbd "C-k") 'next-line)
@@ -77,7 +77,8 @@
 (ergoemacs-theme bodhi ()
   "Bodhi Ergoemacs Theme"
   :components   '(paddle
-                  perl-motions)
+                  perl-motions
+                  ergoemacs-remap)
   :optional-on  '(operator-motion)
   :optional-off '(guru no-backspace)
   :options-menu '(("Extreme ErgoEmacs" (guru no-backspace)

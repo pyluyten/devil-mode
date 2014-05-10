@@ -45,15 +45,9 @@ AKA Cua Paddle state."
 
 
 
-; err, using global mode to trigger our mode does not work.
-; This defeats current design.
-; I can still override about everything but not sure
-; how this will work... well...
-(evil-set-initial-state 'emacs-lisp-mode 'bodhi)
-(evil-set-initial-state 'org-mode        'bodhi)
-(evil-set-initial-state 'cc-mode         'bodhi)
-(evil-set-initial-state 'text-mode       'bodhi)
-(evil-set-initial-state 'fundamental-mode 'bodhi)
+; evil-set-initial-state is not what we want...
+(setq evil-default-state 'bodhi)
+
 
 
 

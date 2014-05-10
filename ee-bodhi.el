@@ -36,8 +36,10 @@
 ; ------------- COMPONENTS ---------------------------
 
 (ergoemacs-theme-component cua-prompters ()
-  "Use cua-inspired keys."
+  "Use cua-inspired keys: s[ave], z[undo], [f]ind, [r]eplace"
   (global-set-key (kbd "C-s") 'save-buffer)
+  (global-set-key (kbd "C-z") 'undo)
+
   (global-set-key (kbd "C-f") 'bodhi-find-prompt)
   (global-set-key (kbd "C-r") 'bodhi-replace-prompt)
 )

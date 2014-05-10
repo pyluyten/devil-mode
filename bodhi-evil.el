@@ -4,20 +4,21 @@
 ; -------------------- BODHI EVIL -----------------------------
 ;
 ;  Implement
-;  - evil-bodhi-state
-;    - paddle, extended paddle + cua paddle
-;    - prompts (^f, ^r...)
-;    - op/motion shortcuts
-;  - [ ] evil-selection-state (close to visual state)
-;  - [ ] evil-rectangle-state (close to visual block)
-;  - more aliases might come. But since we implement on top of evil...
+;  - [-] evil-bodhi-state
+;    - [x] paddle, extended paddle + cua paddle
+;    - [-] prompts (^f, ^r...)
+;    - [-] op/motion shortcuts
+;  - [x] amend evil-selection-state to be consitent
+;  - [ ] evil-rectangle-state or visual. Or make cua-rectangle work.
+;  - [x] amend evil-normal-state to be consistent
+;  - [ ] more aliases might come. But since we implement on top of evil...
 ;
 ;
 ;  Principle
-;  we define a global minor mode and associate every buffer with that
-;  minor mode with bodhi.
-;  one of the reasons is evil provides a nice infra.
-;  for selections, we don't need to handle the keymaps stack ouserlves.
+;    we define a global minor mode and associate every buffer with that
+;    minor mode with bodhi.
+;    one of the reasons is evil provides a nice infra.
+;    for selections, we don't need to handle the keymaps stack ouserlves.
 ;
 
 (add-to-list 'load-path "./")
@@ -39,8 +40,9 @@ AKA Cua Paddle state."
   :tag " <b> "
   ;:enable (motion)
   :cursor (bar . 2)
-  :message "-- EDIT --"
+  :message "- EDIT -"
   :input-method t)
+
 
 
 ; err, using global mode to trigger our mode does not work.
@@ -190,24 +192,34 @@ AKA Cua Paddle state."
 
 ; ------------------ switches from bodhi-state ---------------------
 
+; we rely on visual char for char selection,
+; & cua rectangles for blocks. evil-block and lines are not used.
+; yet to be studied is 24.4 rectangles.
+
 (define-key evil-bodhi-state-map (kbd "C-<SPC>") 'evil-visual-char)
 (define-key evil-bodhi-state-map (kbd "S-<SPC>")   'evil-normal-state)
-
+(define-key evil-bodhi-state-map (kbd "C-<RET>")  'cua-rectangle-set-mark)
 
 ; ------------------ normal-state almost unchanged ----
 
 (define-key evil-normal-state-map (kbd "<RET>")  'evil-bodhi-state)
 (define-key evil-normal-state-map (kbd "S-<SPC>") 'evil-bodhi-state)
 
-; swap i and h
+; swap keys for paddle
 (define-key evil-normal-state-map (kbd "i") 'evil-previous-line)
 (define-key evil-normal-state-map (kbd "I") 'evil-window-top)
+(define-key evil-normal-state-map (kbd "j") 'evil-backward-char)
+(define-key evil-normal-state-map (kbd "k") 'evil-next-line)
+
+; handle the switches but swtich to bodhi state (remember, h not i)
 (define-key evil-normal-state-map (kbd "h") 'evil-insert)
 (define-key evil-normal-state-map (kbd "H") 'evil-insert-line)
 
+; a/A , o/O
+
 ; ------------------ selections ------------------------
 
-(define-key evil-visual-state-map (kbd "<SPC>") 'evil-bodhi-state)
+(define-key evil-visual-state-map (kbd "C-<SPC>") 'evil-bodhi-state)
 (define-key evil-visual-state-map (kbd "<ESC>") 'evil-bodhi-state)
 (define-key evil-visual-state-map (kbd "S-<SPC>") 'evil-normal-state)
 

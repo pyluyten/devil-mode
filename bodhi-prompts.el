@@ -8,7 +8,7 @@
  (view-buffer-other-window buf)
  (funcall (and initial-major-mode))
  (setq message
-   (concat "~~~ BODHI ~~~\n"
+   (concat "\n~~~ ☸ ~~~\n" ; U+2638
            "\n\n\n\n"
            message))
  (insert message)

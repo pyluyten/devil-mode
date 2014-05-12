@@ -197,7 +197,6 @@ AKA Cua Paddle state."
 ; ------------------ normal-state almost unchanged ----
 
 (define-key evil-normal-state-map (kbd "<RET>")  'evil-bodhi-state)
-(define-key evil-normal-state-map (kbd "S-<SPC>") 'evil-bodhi-state)
 
 ; swap keys for paddle
 (define-key evil-normal-state-map (kbd "i") 'evil-previous-line)

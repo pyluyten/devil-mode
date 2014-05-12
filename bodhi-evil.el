@@ -212,9 +212,9 @@ AKA Cua Paddle state."
 
 ; ------------------ selections ------------------------
 
+; actually this depends on *which* visual state.
 (define-key evil-visual-state-map (kbd "C-<SPC>") 'evil-bodhi-state)
 (define-key evil-visual-state-map (kbd "<ESC>") 'evil-bodhi-state)
-(define-key evil-visual-state-map (kbd "S-<SPC>") 'evil-normal-state)
 
 (define-key evil-visual-state-map (kbd "l") 'forward-char)
 (define-key evil-visual-state-map (kbd "i") 'previous-line)

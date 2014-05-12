@@ -21,6 +21,7 @@
   (setq inhibit-startup-message t)
   (setq initial-scratch-message "~~~~~~~~~~~~~\n")
 
+  (setq vc-handled-backends nil)
 
 ; ~~~~
 ; ~~~~ Display

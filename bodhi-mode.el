@@ -22,24 +22,14 @@
 (setq cursor-type 'bar)
 (defvar bodhi-selection-state-map nil "Keymap for bodhi selection state")
 (defvar bodhi-normal-state-map nil "Keymap for bodhi normal state")
-
 (setq bodhi-normal-state-map (make-sparse-keymap))
 
 
-; ---- aliases -----------------------
 
-; FIXME: rather we want a .alias file user could investigate
-;        and customize.
+; this one does not make sens elsewhere...
 
 (defalias 'bdh     'bodhi-mode)
-(defalias 'one     'delete-other-windows)
-(defalias 'eb      'eval-buffer)
-(defalias 'w       'save-buffer)
-(defalias 'q       'save-buffers-kill-terminal)
-(defalias 'vs      'split-window-right)
-(defalias 'e!      'revert-buffer)
-(defalias 'bk      'bookmark-set)
-(defalias 'bj      'bookmark-jump)
+
 
 ; ---- commands ----------------------
 

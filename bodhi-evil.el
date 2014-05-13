@@ -53,28 +53,7 @@ AKA Cua Paddle state."
 
 
 ; ------------------ some commands i need -------------
-
-; TODO : move everything into a bodhi-commands.el
-
-(defun bodhi-backward-kill-line ()
-  "Kill ARG lines backward."
-  (interactive)
-  (kill-line (- 0)))
-
-
-
-(defun bodhi-yank-end-of-line ()
-  "Copy up to end of line."
-  (interactive)
-  (kill-ring-save (point) (line-beginning-position 2)))
-
-(defun bodhi-new-empty-buffer ()
-  "Opens a new empty buffer."
-  (interactive)
-  (let ((buf (generate-new-buffer "untitled")))
-    (switch-to-buffer buf)
-    (funcall (and initial-major-mode))
-    (setq buffer-offer-save t)))
+; -- - only commands depending on evil here -----------
 
 
 (defun bodhi-select-forward-word ()
@@ -124,6 +103,7 @@ AKA Cua Paddle state."
 
 
 
+
 (defun bodhi-prompt-replace ()
   "Prompt for which \"replace\" to run."
   (interactive)
@@ -147,6 +127,39 @@ AKA Cua Paddle state."
   (set-temporary-overlay-map bodhi-replace-map t)
 )
 
+
+
+(defun bodhi-prompt-global ()
+  "Access global functions."
+  (interactive)
+  (setq c (bodhi-prompt "Global"
+    (concat "\n"
+            "i: beginning of buffer\n"
+            "k: end of buffer\n"
+            "j: next buffer\n"
+            "l: other window\n"
+            "\n"
+            "n: evil-normal-state\n"
+            "v: evil-visual-line\n"
+            "b: evil-visual-block\n"
+            )))
+  (cond
+   ((eq c ?i)
+    (beginning-of-buffer))
+   ((eq c ?k)
+    (end-of-buffer))
+   ((eq c ?j)
+    (next-buffer))
+   ((eq c ?l)
+    (other-window))
+   ((eq c ?n)
+    (evil-normal-state))
+   ((eq c ?v)
+    (evil-visual-line))
+   ((eq c ?b)
+    (evil-visual-block))
+   (t
+    (keyboard-quit))))
 
 
 ; ------------------ hooks ---------------------------
@@ -191,7 +204,6 @@ AKA Cua Paddle state."
 ; yet to be studied is 24.4 rectangles.
 
 (define-key evil-bodhi-state-map (kbd "C-<SPC>") 'evil-visual-char)
-(define-key evil-bodhi-state-map (kbd "S-<SPC>")   'evil-normal-state)
 (define-key evil-bodhi-state-map (kbd "C-<RET>")  'cua-rectangle-set-mark)
 
 ; ------------------ normal-state almost unchanged ----
@@ -351,17 +363,7 @@ AKA Cua Paddle state."
 
 
 ; "global"l
-(define-prefix-command 'g-map)
-(define-key evil-bodhi-state-map (kbd "C-g") 'g-map)
-(define-key evil-bodhi-state-map (kbd "C-g i") 'beginning-of-buffer)
-(define-key evil-bodhi-state-map (kbd "C-g k") 'end-of-buffer)
-(define-key evil-bodhi-state-map (kbd "C-g j") 'next-buffer)
-(define-key evil-bodhi-state-map (kbd "C-g l") 'other-window)
-
-
-(define-key evil-bodhi-state-map (kbd "C-g n") 'evil-normal-state)
-(define-key evil-bodhi-state-map (kbd "C-g v") 'evil-visual-line)
-(define-key evil-bodhi-state-map (kbd "C-g C-v") 'evil-visual-block)
+(define-key evil-bodhi-state-map (kbd "C-g") 'bodhi-prompt-global)
 
 
 

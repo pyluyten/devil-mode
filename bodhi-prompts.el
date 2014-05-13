@@ -28,20 +28,19 @@
            "i: isearch-backward\n"
            "j: isearch-backward-regexp\n"
            "k: isearch-forward\n"
-           "l: isearch-forward-regexp")
-  ))
+           "l: isearch-forward-regexp")))
   (cond
-   ((eq c 102) ;f
+   ((eq c ?f)
     (isearch-forward))
-   ((eq c 114) ; r
+   ((eq c ?r)
     (isearch-backward))
-   ((eq c 105) ; i
+   ((eq c ?i)
     (isearch-backward))
-   ((eq c 107) ; k
+   ((eq c ?k)
     (isearch-forward))
-   ((eq c 106) ; j
+   ((eq c ?j)
     (isearch-backward-regexp))
-   ((eq c 108) ; l
+   ((eq c ?l)
     (isearch-forward-regexp))
    (t
     (keyboard-quit))))

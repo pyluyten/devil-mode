@@ -19,6 +19,9 @@
 (defalias 'w       'save-buffer)
 
 
+
+
 (require 'bodhi-prompts)
+(require 'bodhi-commands)
 
 (provide 'bodhi-common)

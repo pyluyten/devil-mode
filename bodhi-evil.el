@@ -249,6 +249,7 @@ AKA Cua Paddle state."
 (define-key evil-visual-state-map (kbd "c") 'kill-ring-save)
 (define-key evil-visual-state-map (kbd "x") 'kill-region)
 (define-key evil-visual-state-map (kbd "d") 'kill-region)
+(define-key evil-visual-state-map (kbd "<backspace>") 'kill-region)
 
 (define-key evil-visual-state-map (kbd "TAB") 'exchange-point-and-mark)
 (define-key evil-visual-state-map (kbd "h k") 'describe-key)

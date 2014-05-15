@@ -5,6 +5,7 @@
  (setq curb (current-buffer))
  (unless title (setq title "Enter:"))
  (setq buf (generate-new-buffer title))
+ (read-only-mode t)
  (view-buffer-other-window buf)
  (funcall (and initial-major-mode))
  (setq message

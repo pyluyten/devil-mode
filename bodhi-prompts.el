@@ -28,7 +28,8 @@
            "i: isearch-backward\n"
            "j: isearch-backward-regexp\n"
            "k: isearch-forward\n"
-           "l: isearch-forward-regexp")))
+           "l: isearch-forward-regexp\n"
+           "\nb: regexp-builder")))
   (cond
    ((eq c ?f)
     (isearch-forward))
@@ -42,6 +43,8 @@
     (isearch-backward-regexp))
    ((eq c ?l)
     (isearch-forward-regexp))
+   ((eq c ?b)
+    (regexp-builder))
    (t
     (keyboard-quit))))
 

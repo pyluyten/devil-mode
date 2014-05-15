@@ -21,6 +21,7 @@
 ;    for selections, we don't need to handle the keymaps stack ouserlves.
 ;
 
+
 (add-to-list 'load-path "./")
 
 (require 'evil)
@@ -300,12 +301,11 @@ AKA Cua Paddle state."
 (define-key evil-bodhi-state-map (kbd "M-à") 'bodhi-backward-kill-line)
 
 
-(define-key evil-bodhi-state-map (kbd "C-<backspace>") 'backward-word)
-(define-key evil-bodhi-state-map (kbd "M-<backpsace>") 'backward-kill-word)
-(define-key evil-bodhi-state-map (kbd "S-<backspace>") 'forward-word)
-(define-key evil-bodhi-state-map (kbd "M-S-<backspace>") 'kill-word)
-; ^ s backspace = kill whole line
-
+(define-key evil-bodhi-state-map (kbd "C-<backspace>") 'backward-kill-word)
+(define-key evil-bodhi-state-map (kbd "C-S-<backspace>") 'kill-whole-line)
+(define-key evil-bodhi-state-map (kbd "M-<backpsace>") nil)
+(define-key evil-bodhi-state-map (kbd "S-<backspace>") nil)
+(define-key evil-bodhi-state-map (kbd "M-S-<backspace>") nil)
 
 ;; somewhat cua : operator -> motion. We don't want to override everything.
 ;; we would somewhat need some prefix...ù*

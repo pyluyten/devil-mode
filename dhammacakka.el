@@ -48,7 +48,17 @@
   (setq make-backup-files nil)
   (setq auto-save-default nil)
 
+; do not break on real files
 
+(defun dhamma-big-files ()
+  "Disable font lock when perf makes it necessary."
+  (when (> (buffer-size) (* 1024 1024))
+    ;(setq buffer-read-only t)
+    ;(buffer-disable-undo)
+    (font-lock-mode nil)
+    (fundamental-mode)))
+
+(add-hook 'find-file-hooks 'dhamma-big-files)
 
 ; ~~~~
 ; ~~~~ Friends

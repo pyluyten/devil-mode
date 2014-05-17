@@ -5,8 +5,8 @@
  (setq curb (current-buffer))
  (unless title (setq title "Enter:"))
  (setq buf (generate-new-buffer title))
- (read-only-mode t)
  (view-buffer-other-window buf)
+ (read-only-mode t)
  (funcall (and initial-major-mode))
  (setq message
    (concat "\n~~~ ☸ ~~~\n" ; U+2638

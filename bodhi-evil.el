@@ -104,32 +104,6 @@ AKA Cua Paddle state."
 
 
 
-
-(defun bodhi-prompt-replace ()
-  "Prompt for which \"replace\" to run."
-  (interactive)
-  (print "i=backward, k=forward, j=reg backward, k=reg forward")
-  (bodhi-replace)
-)
-
-
-(defun bodhi-replace ()
-  "Replace. This function offers several ways."
- (interactive)
-  (setq bodhi-replace-map (make-sparse-keymap))
-  (define-key bodhi-replace-map (kbd "r") 'query-replace-regexp)
-
-  (define-key bodhi-replace-map (kbd "i") 'query-replace)
-  (define-key bodhi-replace-map (kbd "k") 'query-replace-regexp)
-  (define-key bodhi-replace-map (kbd "j") 'replace-string)
-  (define-key bodhi-replace-map (kbd "l") 'replace-regexp)
-  (define-key bodhi-replace-map (kbd "?") 'bodhi-prompt-replace)
-
-  (set-temporary-overlay-map bodhi-replace-map t)
-)
-
-
-
 (defun bodhi-prompt-global ()
   "Access global functions."
   (interactive)
@@ -345,7 +319,7 @@ AKA Cua Paddle state."
 
 
 (define-key evil-bodhi-state-map (kbd "M-f") 'regexp-builder)
-(define-key evil-bodhi-state-map (kbd "C-r") 'bodhi-replace)
+(define-key evil-bodhi-state-map (kbd "C-r") 'bodhi-replace-prompt)
 (define-key evil-bodhi-state-map (kbd "C-v") 'evil-paste-after)
 
 ;  ---------- additional edition features -------------------

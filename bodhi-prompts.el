@@ -50,4 +50,27 @@
     (keyboard-quit))))
 
 
+(defun bodhi-replace-prompt ()
+  (interactive)
+  (setq c (bodhi-prompt "Search"
+   (concat "r: query-replace-regexp\n"
+           "i: query-replace\n"
+           "j: replace-string\n"
+           "k: replace-string\n"
+           "l: replace-regexp")))
+  (cond
+   ((eq c ?r)
+    (call-interactively 'query-replace-regexp))
+
+   ((eq c ?i)
+    (call-interactively 'query-replace))
+   ((eq c ?k)
+    (call-interactively 'replace-string))
+   ((eq c ?j)
+    (call-interactively 'replace-string))
+   ((eq c ?l)
+    (call-interactively 'replace-regexp))
+   (t
+    (keyboard-quit))))
+
 (provide 'bodhi-prompts)

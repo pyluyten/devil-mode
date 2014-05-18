@@ -152,7 +152,7 @@ AKA Cua Paddle state."
    ((eq c ?j)
     (next-buffer))
    ((eq c ?l)
-    (other-window))
+    (other-window 1))
    ((eq c ?n)
     (evil-normal-state))
    ((eq c ?v)

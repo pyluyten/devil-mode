@@ -21,6 +21,15 @@
 
 
 
-
+(defun bodhi-close-tab ()
+  "Closes Current tab.
+If tab is the only one, closes window.
+If window is the only one, kill buffer."
+  (interactive)
+  (setq win (next-window (next-window)))
+  (if win
+    (if (eq win (next-window))
+         (kill-buffer)
+         (delete-window))))
 
 (provide 'bodhi-commands)

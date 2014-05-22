@@ -254,29 +254,31 @@ AKA Cua Paddle state."
 
 (define-key evil-bodhi-state-map (kbd "M-<SPC>") 'execute-extended-command)
 
-(define-key evil-bodhi-state-map (kbd "C-i") 'evil-previous-line)
-(define-key evil-bodhi-state-map (kbd "C-j") 'evil-backward-char)
-(define-key evil-bodhi-state-map (kbd "C-k") 'evil-next-line)
-(define-key evil-bodhi-state-map (kbd "C-l") 'forward-char)
+; paddle
 
+(define-key evil-bodhi-state-map (kbd "M-i") 'evil-previous-line)
+(define-key evil-bodhi-state-map (kbd "M-j") 'evil-backward-char)
+(define-key evil-bodhi-state-map (kbd "M-k") 'evil-next-line)
+(define-key evil-bodhi-state-map (kbd "M-l") 'forward-char)
 
-(define-key evil-bodhi-state-map (kbd "M-l") 'delete-forward-char)
-(define-key evil-bodhi-state-map (kbd "M-j") 'delete-backward-char)
-(define-key evil-bodhi-state-map (kbd "M-k") 'kill-whole-line)
-(define-key evil-bodhi-state-map (kbd "M-i") 'open-line)
+(define-key evil-bodhi-state-map (kbd "C-l") 'delete-forward-char)
+(define-key evil-bodhi-state-map (kbd "C-j") 'delete-backward-char)
+(define-key evil-bodhi-state-map (kbd "C-k") 'kill-whole-line)
+(define-key evil-bodhi-state-map (kbd "C-i") 'open-line)
 
-(define-key evil-bodhi-state-map (kbd "C-u") 'backward-word)
-(define-key evil-bodhi-state-map (kbd "M-u") 'backward-kill-word)
-(define-key evil-bodhi-state-map (kbd "C-o") 'forward-word)
-(define-key evil-bodhi-state-map (kbd "M-o") 'kill-word)
+; extended paddle
 
+(define-key evil-bodhi-state-map (kbd "M-u") 'backward-word)
+(define-key evil-bodhi-state-map (kbd "M-o") 'forward-word)
+(define-key evil-bodhi-state-map (kbd "M-$") 'end-of-line)
+(define-key evil-bodhi-state-map (kbd "M-à") 'beginning-of-line)
+(define-key evil-bodhi-state-map (kbd "M-^") 'beginning-of-line)
+
+(define-key evil-bodhi-state-map (kbd "C-u") 'backward-kill-word)
+(define-key evil-bodhi-state-map (kbd "C-o") 'kill-word)
 (define-key evil-bodhi-state-map (kbd "$")   'end-of-line)
-(define-key evil-bodhi-state-map (kbd "C-$") 'end-of-line)
-(define-key evil-bodhi-state-map (kbd "M-$") 'kill-line)
-
-(define-key evil-bodhi-state-map (kbd "C-à") 'beginning-of-line)
-(define-key evil-bodhi-state-map (kbd "C-^") 'beginning-of-line)
-(define-key evil-bodhi-state-map (kbd "M-à") 'bodhi-backward-kill-line)
+(define-key evil-bodhi-state-map (kbd "C-$") 'kill-line)
+(define-key evil-bodhi-state-map (kbd "C-à") 'bodhi-backward-kill-line)
 
 
 (define-key evil-bodhi-state-map (kbd "C-<backspace>") 'backward-kill-word)
@@ -320,17 +322,21 @@ AKA Cua Paddle state."
 (define-key evil-bodhi-state-map (kbd "<C-f l>")  'isearch-backward-regexp)
 (define-key evil-bodhi-state-map (kbd "<C-f ?>")  'bodhi-prompt-find)
 
-
-(define-key evil-bodhi-state-map (kbd "M-f") 'regexp-builder)
 (define-key evil-bodhi-state-map (kbd "C-r") 'bodhi-replace-prompt)
+
+
 (define-key evil-bodhi-state-map (kbd "C-v") 'evil-paste-after)
+
+; alt
+(define-key evil-bodhi-state-map (kbd "M-f") 'tmm-menubar)
 
 ;  ---------- additional edition features -------------------
 
 (define-key evil-bodhi-state-map (kbd "C-e") 'evil-copy-from-above)
 (define-key evil-bodhi-state-map (kbd "C-y") 'evil-copy-from-below)
-(define-key evil-bodhi-state-map (kbd "M-m") 'newline-and-indent)
 
+(define-key evil-bodhi-state-map (kbd "M-m") 'newline)
+(define-key evil-bodhi-state-map (kbd "C-m") 'newline-and-indent)
 
 ; ----------- others ------------------------------------------
 

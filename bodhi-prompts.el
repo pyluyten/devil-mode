@@ -51,13 +51,13 @@
     (keyboard-quit))))
 
 
-(defun bodhi-replace-prompt ()
+(defun bodhi-replace-do-prompt ()
   (interactive)
   (setq c (bodhi-prompt "Search"
    (concat "r: query-replace-regexp\n"
            "i: query-replace\n"
            "j: replace-string\n"
-           "k: replace-string\n"
+           "k: overwrite-mode\n"
            "l: replace-regexp")))
   (cond
    ((eq c ?r)
@@ -66,12 +66,19 @@
    ((eq c ?i)
     (call-interactively 'query-replace))
    ((eq c ?k)
-    (call-interactively 'replace-string))
+    (call-interactively 'overwrite-mode))
    ((eq c ?j)
     (call-interactively 'replace-string))
    ((eq c ?l)
     (call-interactively 'replace-regexp))
    (t
     (keyboard-quit))))
+
+(defun bodhi-replace-prompt ()
+  (interactive)
+  (if (or (eq overwrite-mode 'overwrite-mode-textual)
+	  (eq overwrite-mode 'overwrite-mode-binary))
+    (overwrite-mode -1)
+    (bodhi-replace-do-prompt)))
 
 (provide 'bodhi-prompts)

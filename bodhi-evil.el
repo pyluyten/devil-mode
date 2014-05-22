@@ -145,6 +145,36 @@
     (keyboard-quit))))
 
 
+; commands to switch to normal-god-super-ultra mode from bodhi-state
+(defun bodhi-normal-state-after ()
+  (interactive)
+  (evil-normal-state)
+  (evil-forward-char))
+
+
+(defun bodhi-normal-state-after-line ()
+  (interactive)
+  (evil-normal-state)
+  (evil-end-of-line))
+
+
+(defun bodhi-normal-state-before-line ()
+  (interactive)
+  (evil-normal-state)
+  (evil-beginning-of-line))
+
+
+(defun bodhi-normal-state-previous-line ()
+  (interactive)
+  (evil-normal-state)
+  (evil-previous-line))
+
+
+(defun bodhi-normal-state-next-line ()
+  (interactive)
+  (evil-normal-state)
+  (evil-next-line))
+
 
 ; ------------------ hooks ---------------------------
 
@@ -188,8 +218,15 @@
 ; yet to be studied is 24.4 rectangles.
 
 (define-key evil-insert-state-map (kbd "C-<SPC>") 'evil-visual-char)
-(define-key evil-insert-state-map (kbd "C-<RET>")  'cua-rectangle-set-mark)
+(define-key evil-insert-state-map (kbd "C-<RET>")  'cua-rectangle-set-mark) ;; fixme of course. Cannot work.
 
+; switch to normal-state
+(define-key evil-insert-state-map (kbd "C-M-l") 'bodhi-normal-state-after)
+(define-key evil-insert-state-map (kbd "C-M-j") 'evil-normal-state)
+(define-key evil-insert-state-map (kbd "C-M-i") 'bodhi-normal-state-previous-line)
+(define-key evil-insert-state-map (kbd "C-M-k") 'bodhi-normal-state-next-line)
+(define-key evil-insert-state-map (kbd "C-M-u") 'bodhi-normal-state-before-line)
+(define-key evil-insert-state-map (kbd "C-M-o") 'bodhi-normal-state-after-line)
 
 
 ; ------------------ normal-state inspired from god mode   ----
@@ -223,6 +260,17 @@
 (define-key evil-normal-state-map (kbd "I") 'evil-window-top)
 (define-key evil-normal-state-map (kbd "j") 'evil-backward-char)
 (define-key evil-normal-state-map (kbd "k") 'evil-next-line)
+
+
+;;  ok now do real stuff
+(define-key evil-normal-state-map (kbd "v") 'evil-paste-after)
+(define-key evil-normal-state-map (kbd "f") 'bodhi-find-prompt)
+(define-key evil-normal-state-map (kbd "r") 'bodhi-replace-prompt)
+(define-key evil-normal-state-map (kbd "s") 'save-buffer)
+(define-key evil-normal-state-map (kbd "g") 'bodhi-global-prompt)
+(define-key evil-normal-state-map (kbd "z") 'undo-tree-undo)
+(define-key evil-normal-state-map (kbd "w") 'bodhi-close-tab)
+
 
 
 ; ------------------ selections ------------------------
@@ -307,12 +355,16 @@
 (define-key evil-insert-state-map (kbd "C-$") 'kill-line)
 (define-key evil-insert-state-map (kbd "C-à") 'bodhi-backward-kill-line)
 
+; some alternatives to handle most current deletion
 
 (define-key evil-insert-state-map (kbd "C-<backspace>") 'backward-kill-word)
 (define-key evil-insert-state-map (kbd "C-S-<backspace>") 'kill-whole-line)
-(define-key evil-insert-state-map (kbd "M-<backpsace>") nil)
-(define-key evil-insert-state-map (kbd "S-<backspace>") nil)
-(define-key evil-insert-state-map (kbd "M-S-<backspace>") nil)
+(define-key evil-insert-state-map (kbd "C-d") 'delete-char)
+(define-key evil-insert-state-map (kbd "M-d") 'kill-word)
+
+(define-key evil-insert-state-map (kbd "M-<backpsace>") 'kill-word) ; really buggy now
+(define-key evil-insert-state-map (kbd "S-<backspace>") nil) ; select some word? innerword?
+(define-key evil-insert-state-map (kbd "M-S-<backspace>") nil) ;
 
 ;; somewhat cua : operator -> motion. We don't want to override everything.
 ;; we would somewhat need some prefix...ù*

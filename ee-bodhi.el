@@ -54,25 +54,6 @@
   (global-set-key (kbd "C-x w") 'kill-word))
 
 
-(ergoemacs-theme-component paddle ()
-; This is not compatible with "backspace is back nor any backspace shorcuts.
-; Since ^i stands for TAB. Which is an emacs bug (not a feature. Seriously)
-  "Simple i j k l paddle."
-  (global-set-key (kbd "C-i") 'previous-line)
-  (global-set-key (kbd "C-j") 'backward-char)
-  (global-set-key (kbd "C-l") 'forward-char)
-  (global-set-key (kbd "C-k") 'next-line)
-  
-  (global-set-key (kbd "M-l") 'delete-forward-char)
-  (global-set-key (kbd "M-j") 'delete-backward-char)
-  (global-set-key (kbd "M-k") 'kill-whole-line)
-  (global-set-key (kbd "M-i") 'open-line)
-  
-  (global-set-key (kbd "C-u") 'backward-word)
-  (global-set-key (kbd "M-u") 'backward-kill-word)
-  (global-set-key (kbd "C-o") 'forward-word)
-  (global-set-key (kbd "M-o") 'kill-word))
-
 
 (ergoemacs-theme-component perl-motions ()
   "Part of vim-like perl motions."
@@ -90,7 +71,7 @@
   "Bodhi Ergoemacs Theme"
   :components   '(cua-prompters
                   ergoemacs-remap
-                  paddle
+                  move-char ;; standard ergo paddle
                   perl-motions)
   :optional-on  '(operator-motion)
   :optional-off '(guru no-backspace)

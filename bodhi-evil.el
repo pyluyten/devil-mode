@@ -140,6 +140,7 @@ AKA Cua Paddle state."
     (keyboard-quit))))
 
 
+
 ; ------------------ hooks ---------------------------
 
 
@@ -184,9 +185,33 @@ AKA Cua Paddle state."
 (define-key evil-bodhi-state-map (kbd "C-<SPC>") 'evil-visual-char)
 (define-key evil-bodhi-state-map (kbd "C-<RET>")  'cua-rectangle-set-mark)
 
-; ------------------ normal-state almost unchanged ----
+
+
+; ------------------ normal-state inspired from god mode   ----
 
 (define-key evil-normal-state-map (kbd "<RET>")  'evil-bodhi-state)
+
+
+; paddle & extended paddle
+(define-key evil-normal-state-map (kbd "i") 'evil-previous-line)
+(define-key evil-normal-state-map (kbd "j") 'evil-backward-char)
+(define-key evil-normal-state-map (kbd "k") 'evil-next-line)
+(define-key evil-normal-state-map (kbd "l") 'evil-forward-char)
+
+(define-key evil-normal-state-map (kbd "u") 'backward-word)
+(define-key evil-normal-state-map (kbd "o") 'forward-word)
+(define-key evil-normal-state-map (kbd "$") 'evil-end-of-line)
+(define-key evil-normal-state-map (kbd "^") 'evil-beginning-of-line)
+(define-key evil-normal-state-map (kbd "à") 'evil-beginning-of-line)
+
+; switches
+(define-key evil-normal-state-map (kbd "I") 'evil-open-above)
+(define-key evil-normal-state-map (kbd "J") 'evil-insert)
+(define-key evil-normal-state-map (kbd "K") 'evil-open-below)
+(define-key evil-normal-state-map (kbd "L") 'evil-append)
+(define-key evil-normal-state-map (kbd "U") 'evil-insert-line)
+(define-key evil-normal-state-map (kbd "O") 'evil-append-line)
+
 
 ; swap keys for paddle
 (define-key evil-normal-state-map (kbd "i") 'evil-previous-line)

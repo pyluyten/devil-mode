@@ -28,8 +28,8 @@
            "r: isearch-backward\n\n"
            "i: isearch-backward\n"
            "j: isearch-backward-regexp\n"
-           "k: isearch-forward\n"
-           "l: isearch-forward-regexp\n"
+           "k: isearch-forward-regexp\n"
+           "l: evil-find-char\n"
            "\nb: regexp-builder")))
   (cond
    ((eq c ?f)
@@ -43,7 +43,8 @@
    ((eq c ?j)
     (isearch-backward-regexp))
    ((eq c ?l)
-    (isearch-forward-regexp))
+    ;; TODO - don't use evil- in this file.
+    (call-interactively 'evil-find-char))
    ((eq c ?b)
     (regexp-builder))
    (t

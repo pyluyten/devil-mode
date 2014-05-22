@@ -178,7 +178,6 @@
 
 ; ------------------ hooks ---------------------------
 
-
 (defun bodhi-prepare-for-isearch ()
   (define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
   (define-key isearch-mode-map (kbd "C-r") 'isearch-repeat-backward)
@@ -208,7 +207,6 @@
 (add-hook 'ibuffer-hook          'bodhi-prepare-for-ibuffer)
 (add-hook 'isearch-mode-hook     'bodhi-prepare-for-isearch)
 (add-hook 'dired-mode-hook       'bodhi-prepare-for-dired)
-
 
 
 ; ------------------ switches from bodhi-state ---------------------
@@ -272,6 +270,7 @@
 (define-key evil-normal-state-map (kbd "w") 'bodhi-close-tab)
 
 
+(define-key evil-normal-state-map (kbd "x") 'Control-X-prefix)
 
 ; ------------------ selections ------------------------
 

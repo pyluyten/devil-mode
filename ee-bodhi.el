@@ -42,6 +42,7 @@
 
   (global-set-key (kbd "C-f") 'bodhi-find-prompt)
   (global-set-key (kbd "C-r") 'bodhi-replace-prompt)
+  (global-set-key (kbd "C-g") 'bodhi-global-prompt)
 )
 
 
@@ -71,7 +72,7 @@
   "Bodhi Ergoemacs Theme"
   :components   '(cua-prompters
                   ergoemacs-remap
-                  move-char ;; standard ergo paddle
+                  move-char
                   perl-motions)
   :optional-on  '(operator-motion)
   :optional-off '(guru no-backspace)

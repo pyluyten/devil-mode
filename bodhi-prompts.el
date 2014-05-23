@@ -57,14 +57,15 @@
 (defun bodhi-replace-do-prompt ()
   (interactive)
   (setq c (bodhi-prompt "Search"
-   (concat "r: query-replace-regexp\n"
-           "f: query-replace\n"
-           "i: replace-string\n"
-           "k: overwrite-mode\n"
-           "l: replace-regexp\n"
-	   "j: join-line (following)\n"
-	   "J: join-line (previous)\n"
-	   "z: zap-to-char")))
+   "
+    r: query-replace-regexp
+    f: query-replace
+    i: replace-string
+    k: overwrite-mode
+    l: replace-regexp
+    j: join-line (following)
+    J: join-line (previous)
+    z: zap-to-char"))
   (cond
    ((eq c ?r)
     (call-interactively 'query-replace-regexp))

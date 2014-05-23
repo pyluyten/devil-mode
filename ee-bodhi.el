@@ -6,7 +6,7 @@
 
 ; ------------- COMPONENTS ---------------------------
 
-(ergoemacs-theme-component cua-prompters ()
+(ergoemacs-theme-component bodhi-prompters ()
   "Use cua-inspired prompters to deploy emacs"
   (global-set-key (kbd "C-s") 'save-buffer)
   (global-set-key (kbd "C-z") 'undo)
@@ -23,7 +23,7 @@
   (global-set-key (kbd "C-x x") 'kill-whole-line))
 
 
-(ergoemacs-theme-component perl-motions ()
+(ergoemacs-theme-component bodhi-perl-motions ()
   "Use $ and 0 to move to eol bol."
   (global-set-key (kbd "$")   'end-of-line)
   (global-set-key (kbd "C-$") 'kill-line)
@@ -35,10 +35,10 @@
 
 (ergoemacs-theme bodhi ()
   "Bodhi Ergoemacs Theme"
-  :components   '(cua-prompters
+  :components   '(bodhi-prompters
                   ergoemacs-remap
                   move-char
-                  perl-motions)
+                  bodhi-perl-motions)
   :optional-on  '(operator-motion)
   :optional-off '(guru no-backspace)
   :options-menu '(("Extreme ErgoEmacs" (guru no-backspace)

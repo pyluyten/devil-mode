@@ -60,7 +60,8 @@
            "k: overwrite-mode\n"
            "l: replace-regexp\n"
 	   "j: join-line (following)\n"
-	   "J: join-line (previous)")))
+	   "J: join-line (previous)\n"
+	   "z: zap-to-char")))
   (cond
    ((eq c ?r)
     (call-interactively 'query-replace-regexp))
@@ -77,6 +78,8 @@
     (join-line 1))
    ((eq c ?J)
     (join-line))
+   ((eq c ?z)
+    (call-interactively 'zap-to-char))
    (t
     (keyboard-quit))))
 

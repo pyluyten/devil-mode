@@ -108,52 +108,6 @@
  (end-of-line))
 
 
-
-
-
-
-(defun bodhi-prompt-global ()
-  "Access global functions."
-  (interactive)
-  (setq c (bodhi-prompt "Global"
-     "
-     i: beginning of buffer
-     k: end of buffer
-     $: next buffer
-     o: other window
-
-     n: evil-normal-state
-     v: evil-visual-line
-     V: evil-visual-block
-     r: revert-buffer
-
-     b: bookmark-set
-     j: bookmark-jump"))
-  (cond
-   ((eq c ?i)
-    (beginning-of-buffer))
-   ((eq c ?k)
-    (end-of-buffer))
-   ((eq c ?$)
-    (next-buffer))
-   ((eq c ?o)
-    (other-window 1))
-   ((eq c ?n)
-    (evil-normal-state))
-   ((eq c ?v)
-    (evil-visual-line))
-   ((eq c ?V)
-    (evil-visual-block))
-   ((eq c ?r)
-    (revert-buffer))
-   ((eq c ?b)
-    (call-interactively 'bookmark-set))
-   ((eq c ?j)
-    (call-interactively 'bookmark-jump))
-   (t
-    (keyboard-quit))))
-
-
 ; commands to switch to normal-god-super-ultra mode from bodhi-state
 (defun bodhi-normal-state-after ()
   (interactive)

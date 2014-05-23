@@ -119,31 +119,37 @@
      "
      i: beginning of buffer
      k: end of buffer
-     j: next buffer
-     l: other window
+     $: next buffer
+     o: other window
 
      n: evil-normal-state
      v: evil-visual-line
-     b: evil-visual-block
-     r: revert-buffer"
-            ))
+     V: evil-visual-block
+     r: revert-buffer
+
+     b: bookmark-set
+     j: bookmark-jump"))
   (cond
    ((eq c ?i)
     (beginning-of-buffer))
    ((eq c ?k)
     (end-of-buffer))
-   ((eq c ?j)
+   ((eq c ?$)
     (next-buffer))
-   ((eq c ?l)
+   ((eq c ?o)
     (other-window 1))
    ((eq c ?n)
     (evil-normal-state))
    ((eq c ?v)
     (evil-visual-line))
-   ((eq c ?b)
+   ((eq c ?V)
     (evil-visual-block))
    ((eq c ?r)
     (revert-buffer))
+   ((eq c ?b)
+    (call-interactively 'bookmark-set))
+   ((eq c ?j)
+    (call-interactively 'bookmark-jump))
    (t
     (keyboard-quit))))
 

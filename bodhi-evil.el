@@ -116,16 +116,17 @@
   "Access global functions."
   (interactive)
   (setq c (bodhi-prompt "Global"
-    (concat "\n"
-            "i: beginning of buffer\n"
-            "k: end of buffer\n"
-            "j: next buffer\n"
-            "l: other window\n"
-            "\n"
-            "n: evil-normal-state\n"
-            "v: evil-visual-line\n"
-            "b: evil-visual-block\n"
-            )))
+     "
+     i: beginning of buffer
+     k: end of buffer
+     j: next buffer
+     l: other window
+
+     n: evil-normal-state
+     v: evil-visual-line
+     b: evil-visual-block
+     r: revert-buffer"
+            ))
   (cond
    ((eq c ?i)
     (beginning-of-buffer))
@@ -141,6 +142,8 @@
     (evil-visual-line))
    ((eq c ?b)
     (evil-visual-block))
+   ((eq c ?r)
+    (revert-buffer))
    (t
     (keyboard-quit))))
 

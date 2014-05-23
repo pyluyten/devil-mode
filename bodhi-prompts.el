@@ -24,13 +24,16 @@
 (defun bodhi-find-prompt ()
   (interactive)
   (setq c (bodhi-prompt "Search"
-   (concat "f: isearch-forward\n"
-           "r: isearch-backward\n\n"
-           "i: isearch-backward\n"
-           "j: isearch-backward-regexp\n"
-           "k: isearch-forward-regexp\n"
-           "l: evil-find-char\n"
-           "\nb: regexp-builder")))
+   "
+    f: isearch-forward
+    r: isearch-backward
+
+    i: isearch-backward
+    j: isearch-backward-regexp
+    k: isearch-forward-regexp
+    l: evil-find-char
+
+    b: regexp-builder"))
   (cond
    ((eq c ?f)
     (isearch-forward))

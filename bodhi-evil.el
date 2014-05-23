@@ -36,9 +36,9 @@
 
 
 
-; do not declare states. mess up evil, and the playstation (tm), too.
-(setq evil-normal-state-tag "[]")
-(setq evil-insert-state-tag "|")
+; do not declare states. mess up evil.
+(setq evil-normal-state-tag "^")
+(setq evil-insert-state-tag "!")
 (setq evil-visual-state-tag "<>")
 (setq evil-default-state 'insert) ; yup. this makes sense, really. Normal is just there for tired fingers on the evening =)
 

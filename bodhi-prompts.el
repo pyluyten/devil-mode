@@ -54,6 +54,7 @@
     (keyboard-quit))))
 
 
+
 (defun bodhi-replace-do-prompt ()
   (interactive)
   (setq c (bodhi-prompt "Search"
@@ -61,11 +62,18 @@
     r: query-replace-regexp
     f: query-replace
     i: replace-string
-    k: overwrite-mode
     l: replace-regexp
+
+    k: overwrite-mode
+
     j: join-line (following)
     J: join-line (previous)
-    z: zap-to-char"))
+
+    z: zap-to-char
+
+    u: UPCASE-WORD
+    d: downcase-word
+    c: Capitalize-Word"))
   (cond
    ((eq c ?r)
     (call-interactively 'query-replace-regexp))
@@ -84,6 +92,12 @@
     (join-line))
    ((eq c ?z)
     (call-interactively 'zap-to-char))
+   ((eq c ?u)
+    (call-interactively 'upcase-word))
+   ((eq c ?d)
+    (call-interactively 'downcase-word))
+   ((eq c ?c)
+    (call-interactively 'capitalize-word))
    (t
     (keyboard-quit))))
 

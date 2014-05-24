@@ -260,7 +260,6 @@
 (define-key evil-visual-state-map (kbd "à") 'beginning-of-line) ; azerty for 0
 (define-key evil-visual-state-map (kbd "^") 'evil-first-non-blank)
 (define-key evil-visual-state-map (kbd "o") 'forward-word)
-(define-key evil-visual-state-map (kbd "w") 'forward-word)
 (define-key evil-visual-state-map (kbd "u") 'backward-word)
 (define-key evil-visual-state-map (kbd "b") 'backward-word)
 
@@ -268,7 +267,7 @@
 (define-key evil-visual-state-map (kbd "r") 'bodhi-search-backward)
 
 (define-key evil-visual-state-map (kbd "c") 'kill-ring-save)
-(define-key evil-visual-state-map (kbd "x") 'kill-region)
+(define-key evil-visual-state-map (kbd "x") 'kill-region) ; cannot Control-X-prefix.
 (define-key evil-visual-state-map (kbd "d") 'kill-region)
 (define-key evil-visual-state-map (kbd "<backspace>") 'kill-region)
 
@@ -276,6 +275,13 @@
 (define-key evil-visual-state-map (kbd "h k") 'describe-key)
 (define-key evil-visual-state-map (kbd "h f") 'describe-function)
 
+
+(define-key evil-visual-state-map (kbd "f") 'bodhi-find-prompt)
+(define-key evil-visual-state-map (kbd "r") 'bodhi-replace-prompt)
+(define-key evil-visual-state-map (kbd "s") 'save-buffer)
+(define-key evil-visual-state-map (kbd "g") 'bodhi-global-prompt)
+;(define-key evil-visual-state-map (kbd "z") 'undo-tree-undo)
+(define-key evil-visual-state-map (kbd "w") 'bodhi-close-tab)
 
 
 ; selecting from bodhi mode

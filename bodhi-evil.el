@@ -66,7 +66,15 @@
   "Select forward word."
  (interactive)
  (evil-visual-char)
- (evil-forward-word-end))
+ (forward-word))
+
+
+(defun bodhi-select-backward-word ()
+  "Select backward word."
+ (interactive)
+ (evil-visual-char)
+ (backward-word))
+
 
 (defun bodhi-select-forward-char ()
   "Select forward char."
@@ -277,6 +285,7 @@
 ; below work only once since tab does exchange point & mark. Might be fine enough.
 (define-key evil-insert-state-map (kbd "M-I")        'bodhi-select-previous-line)
 (define-key evil-insert-state-map (kbd "M-O")        'bodhi-select-forward-word)
+(define-key evil-insert-state-map (kbd "M-U")        'bodhi-select-backward-word)
 (define-key evil-insert-state-map (kbd "M-L")        'bodhi-select-forward-char)
 
 (define-key evil-insert-state-map (kbd "S-<end>")    'bodhi-select-forward-line)

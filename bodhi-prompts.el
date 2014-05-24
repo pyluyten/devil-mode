@@ -25,23 +25,22 @@
   (interactive)
   (setq c (bodhi-prompt "Global"
      "
-     i: beginning of buffer
+     ==== GOTO ==========        === GLOBAL ===
+     i: beginning of buffer      r: revert-buffer
+     g: goto line                t: transpose-frame
      k: end of buffer
-     $: next buffer
-     o: other window
+                                 n: evil-normal-state
+     $: next buffer              v: evil-visual-line
+     o: other window             V: evil-visual-block
 
-     n: evil-normal-state
-     v: evil-visual-line
-     V: evil-visual-block
-     r: revert-buffer
-
-     b: bookmark-set
-     j: bookmark-jump"))
+     j: bookmark-jump            b: bookmark-set"))
   (cond
    ((eq c ?i)
     (beginning-of-buffer))
    ((eq c ?k)
     (end-of-buffer))
+   ((eq c ?g)
+    (goto-line))
    ((eq c ?$)
     (next-buffer))
    ((eq c ?o)
@@ -58,6 +57,8 @@
     (call-interactively 'bookmark-set))
    ((eq c ?j)
     (call-interactively 'bookmark-jump))
+   ((eq c ?t)
+    (transpose-frame))
    (t
     (keyboard-quit))))
 
@@ -70,7 +71,6 @@
     f: isearch-forward
     r: isearch-backward
 
-    i: isearch-backward
     j: isearch-backward-regexp
     k: isearch-forward-regexp
     l: evil-find-char
@@ -85,10 +85,12 @@
       (isearch-forward)))
    ((eq c ?r)
     (isearch-backward))
-   ((eq c ?i)
-    (isearch-backward))
    ((eq c ?k)
-    (isearch-forward-regexp))
+    (if mark-active
+      (progn
+	(call-interactively 'isearch-forward-regexp)
+	(isearch-yank-string (buffer-substring-no-properties (region-beginning) (region-end))))
+    (isearch-forward-regexp)))
    ((eq c ?j)
     (isearch-backward-regexp))
    ((eq c ?l)

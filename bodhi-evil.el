@@ -399,7 +399,7 @@
 
 
 ; "global"l
-(define-key evil-insert-state-map (kbd "C-g") 'bodhi-prompt-global)
+(define-key evil-insert-state-map (kbd "C-g") 'bodhi-global-prompt)
 
 
 

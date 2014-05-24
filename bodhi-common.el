@@ -1,5 +1,10 @@
 
 (add-to-list 'load-path "./")
+(require 'transpose-frame)
+
+
+(require 'bodhi-prompts)
+(require 'bodhi-commands)
 
 
 ; ---- aliases -----------------------
@@ -17,11 +22,5 @@
 (defalias 'q       'save-buffers-kill-terminal)
 (defalias 'vs      'split-window-right)
 (defalias 'w       'save-buffer)
-
-
-
-
-(require 'bodhi-prompts)
-(require 'bodhi-commands)
 
 (provide 'bodhi-common)

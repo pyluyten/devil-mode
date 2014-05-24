@@ -78,13 +78,17 @@
     b: regexp-builder"))
   (cond
    ((eq c ?f)
-    (isearch-forward))
+    (if mark-active
+      (progn
+	(call-interactively 'isearch-forward)
+	(isearch-yank-string (buffer-substring-no-properties (region-beginning) (region-end))))
+      (isearch-forward)))
    ((eq c ?r)
     (isearch-backward))
    ((eq c ?i)
     (isearch-backward))
    ((eq c ?k)
-    (isearch-forward))
+    (isearch-forward-regexp))
    ((eq c ?j)
     (isearch-backward-regexp))
    ((eq c ?l)

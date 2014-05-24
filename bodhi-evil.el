@@ -66,7 +66,7 @@
   "Select forward word."
  (interactive)
  (evil-visual-char)
- (evil-forward-word))
+ (evil-forward-word-end))
 
 (defun bodhi-select-forward-char ()
   "Select forward char."
@@ -95,7 +95,7 @@
 
 (defun bodhi-select-next-line ()
   "Select next line."
-  (interactive)
+ (interactive)
  (evil-visual-char)
  (evil-next-line)
 )
@@ -191,6 +191,7 @@
 
 
 ; ------------------ normal-state inspired from god mode   ----
+; keybinding should stay close to insert mode
 
 (define-key evil-normal-state-map (kbd "<RET>")  'evil-insert-state)
 
@@ -271,12 +272,13 @@
 
 ; selecting from bodhi mode
 
-(define-key evil-insert-state-map (kbd "M-S-K")        'bodhi-select-next-line)
-(define-key evil-insert-state-map (kbd "M-S-J")        'bodhi-select-backward-char)
+(define-key evil-insert-state-map (kbd "M-K")        'bodhi-select-next-line)
+(define-key evil-insert-state-map (kbd "M-J")        'bodhi-select-backward-char)
 ; below work only once since tab does exchange point & mark. Might be fine enough.
-(define-key evil-insert-state-map (kbd "M-S-I")        'bodhi-select-previous-line)
-(define-key evil-insert-state-map (kbd "M-S-O")        'bodhi-select-forward-word)
-(define-key evil-insert-state-map (kbd "M-S-L")        'bodhi-select-forward-char)
+(define-key evil-insert-state-map (kbd "M-I")        'bodhi-select-previous-line)
+(define-key evil-insert-state-map (kbd "M-O")        'bodhi-select-forward-word)
+(define-key evil-insert-state-map (kbd "M-L")        'bodhi-select-forward-char)
+
 (define-key evil-insert-state-map (kbd "S-<end>")    'bodhi-select-forward-line)
 (define-key evil-insert-state-map (kbd "S-<orig>") 'bodhi-select-backward-line)
 

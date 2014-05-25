@@ -7,7 +7,6 @@
 ;;
 ;;    TODO : org-mode. EXCLUDE : maggit, ...
 ;;    TODO : mode-dependant cursor
-;;    TODO : folding, bookmarks, join
 ;;    MAYBE: ^g for "global" (buffer,...)
 ;;
 ;;    Remember, C-i=TAB, C-m=RET, avoid "?"
@@ -30,6 +29,10 @@
 ; this one does not make sens elsewhere...
 
 (defalias 'bdh     'bodhi-mode)
+
+
+
+; TODO : modeline.
 
 
 ; ---- commands ----------------------
@@ -216,6 +219,9 @@
 (define-key bodhi-normal-state-map (kbd "C-f") 'bodhi-find-prompt)
 (define-key bodhi-normal-state-map (kbd "M-f") 'tmm-menubar)
 (define-key bodhi-normal-state-map (kbd "C-r") 'bodhi-replace-prompt)
+(define-key bodhi-normal-state-map (kbd "C-g") 'bodhi-global-prompt)
+
+
 (define-key bodhi-normal-state-map (kbd "C-v") 'cua-paste)
 
 
@@ -230,8 +236,10 @@
 ;  ---------- additional edition features -------------------
 
 (define-key bodhi-normal-state-map (kbd "C-e") 'bodhi-copy-from-above)
-(define-key bodhi-normal-state-map (kbd "C-m") 'newline-and-indent)
-(define-key bodhi-normal-state-map (kbd "M-m") 'newline)
+
+; i want to switch, but this requires some emulation before
+;(define-key bodhi-normal-state-map (kbd "C-m") 'newline-and-indent)
+;(define-key bodhi-normal-state-map (kbd "M-m") 'RET...)
 
 ; ----------- others ------------------------------------------
 

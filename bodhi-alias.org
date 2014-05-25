@@ -1,0 +1,3 @@
+| fc | forward-char    | next char              |
+| bc | backward-char   | previous char          |
+| dd | kill-whole-line | delete from bol to eol |

@@ -16,6 +16,7 @@
 (require 'cua-base)
 (require 'rect)
 
+(require 'bodhi-common)
 
 ; ---- vars & assignements -----------
 
@@ -34,56 +35,10 @@
 ; ---- commands ----------------------
 
 
-(defun bodhi-copy-from-above (&optional arg)
-  "Copy characters from previous nonblank line, starting just above point.
-Copy ARG characters, but not past the end of that line.
-If no argument given, copy 1 char."
-  (interactive "P")
-  (let ((cc (current-column))
-	n
-	(string ""))
-    (save-excursion
-      (beginning-of-line)
-      (backward-char 1)
-      (skip-chars-backward "\ \t\n")
-      (move-to-column cc)
-       (setq n (if arg (prefix-numeric-value-arg) 1))
-      ;; If current column winds up in middle of a tab,
-      ;; copy appropriate number of "virtual" space chars.
-      (if (< cc (current-column))
-	  (if (= (preceding-char) ?\t)
-	      (progn
-		(setq string (make-string (min n (- (current-column) cc)) ?\s))
-		(setq n (- n (min n (- (current-column) cc)))))
-	    ;; In middle of ctl char => copy that whole char.
-	    (backward-char 1)))
-      (setq string (concat string
-			   (buffer-substring
-			    (point)
-			    (min (line-end-position)
-				 (+ n (point)))))))
-    (insert string)))
-
-
 (defun bodhi-quit-or-leave ()
   "Quit emacs"
   (interactive)
   (kill-buffer))
-
-
-(defun bodhi-backward-kill-line ()
-  "Kill ARG lines backward."
-  (interactive)
-  (kill-line (- 0)))
-
-
-(defun bodhi-new-empty-buffer ()
-  "Opens a new empty buffer."
-  (interactive)
-  (let ((buf (generate-new-buffer "untitled")))
-    (switch-to-buffer buf)
-    (funcall (and initial-major-mode))
-    (setq buffer-offer-save t)))
 
 (defun bodhi-search-foward ()
  (interactive)
@@ -105,88 +60,6 @@ If no argument given, copy 1 char."
   (if cua--rectangle
     (cua-insert-char-rectangle 32) ;SPC
     (keyboard-quit)))
-
-
-(defun bodhi-enf-of-line ()
-  (interactive)
-  (if (= (point) (progn (end-of-line) (point)))
-     (next-line)))
-
-
-
-(defun bodhi-back-to-indentation ()
-  (interactive)
-  (if (= (point) (progn (back-to-indentation) (point)))
-    (beginning-of-line)))
-
-
-
- (defun bodhi-copy-line (arg)
-    "Copy lines (as many as prefix argument) in the kill ring.
-      Ease of use features:
-      - Move to start of next line.
-      - Appends the copy on sequential calls.
-      - Use newline as last char even on the last line of the buffer.
-      - If region is active, copy its lines."
-    (interactive "p")
-    (let ((beg (line-beginning-position))
-          (end (line-end-position arg)))
-      (when mark-active
-        (if (> (point) (mark))
-            (setq beg (save-excursion (goto-char (mark)) (line-beginning-position)))
-          (setq end (save-excursion (goto-char (mark)) (line-end-position)))))
-      (if (eq last-command 'copy-line)
-          (kill-append (buffer-substring beg end) (< end beg))
-        (kill-ring-save beg end)))
-    (kill-append "\n" nil)
-    (beginning-of-line (or (and arg (1+ arg)) 2))
-    (if (and arg (not (= 1 arg))) (message "%d lines copied" arg)))
-
-
-;; todo : create another buffer to prompt, rather than this awful draft
-
-(defun bodhi-prompt-replace ()
-  (interactive)
-  (print "i=backward, k=forward, j=reg backward, k=reg forward")
-  (bodhi-replace)
-)
-
-
-(defun bodhi-replace ()
- (interactive)
-  (setq bodhi-replace-map (make-sparse-keymap))
-  (define-key bodhi-replace-map (kbd "r") 'query-replace-regexp)
-
-  (define-key bodhi-replace-map (kbd "i") 'query-replace)
-  (define-key bodhi-replace-map (kbd "k") 'query-replace-regexp)
-  (define-key bodhi-replace-map (kbd "j") 'replace-string)
-  (define-key bodhi-replace-map (kbd "l") 'replace-regexp)
-  (define-key bodhi-replace-map (kbd "?") 'bodhi-prompt-replace)
-
-  (set-temporary-overlay-map bodhi-replace-map t)
-)
-
-
-(defun bodhi-prompt-find ()
- (interactive)
- (print "i=search bacwkard, k=search forward, j=regexp backward, l=regex forward")
- (bodhi-find)
-)
-
-
-(defun bodhi-find ()
- (interactive)
-  (setq bodhi-find-map (make-sparse-keymap))
-  (define-key bodhi-find-map (kbd "f") 'isearch-forward)
-
-  (define-key bodhi-find-map (kbd "i") 'isearch-backward)
-  (define-key bodhi-find-map (kbd "k") 'isearch-forward)
-  (define-key bodhi-find-map (kbd "j") 'isearch-forward-regexp)
-  (define-key bodhi-find-map (kbd "l") 'isearch-backward-regexp)
-  (define-key bodhi-find-map (kbd "?") 'bodhi-prompt-find)
-
-  (set-temporary-overlay-map bodhi-find-map t)
-)
 
 
 (defun bodhi-join-next-line () (interactive) (join-line 1))
@@ -292,28 +165,28 @@ If no argument given, copy 1 char."
 (define-key bodhi-normal-state-map (kbd "M-<SPC>") 'execute-extended-command)
 (define-key bodhi-normal-state-map (kbd "C-:") 'execute-extended-command)
 
-(define-key bodhi-normal-state-map (kbd "C-i") 'previous-line)
-(define-key bodhi-normal-state-map (kbd "C-j") 'backward-char)
-(define-key bodhi-normal-state-map (kbd "C-l") 'forward-char)
-(define-key bodhi-normal-state-map (kbd "C-k") 'next-line)
+(define-key bodhi-normal-state-map (kbd "M-i") 'previous-line)
+(define-key bodhi-normal-state-map (kbd "M-j") 'backward-char)
+(define-key bodhi-normal-state-map (kbd "M-l") 'forward-char)
+(define-key bodhi-normal-state-map (kbd "M-k") 'next-line)
 
-(define-key bodhi-normal-state-map (kbd "M-l") 'delete-forward-char)
-(define-key bodhi-normal-state-map (kbd "M-j") 'delete-backward-char)
-(define-key bodhi-normal-state-map (kbd "M-k") 'kill-whole-line)
-(define-key bodhi-normal-state-map (kbd "M-i") 'open-line)
+(define-key bodhi-normal-state-map (kbd "C-l") 'delete-forward-char)
+(define-key bodhi-normal-state-map (kbd "C-j") 'delete-backward-char)
+(define-key bodhi-normal-state-map (kbd "C-k") 'kill-whole-line)
+(define-key bodhi-normal-state-map (kbd "C-i") 'open-line)
 
-(define-key bodhi-normal-state-map (kbd "C-u") 'backward-word)
-(define-key bodhi-normal-state-map (kbd "M-u") 'backward-kill-word)
-(define-key bodhi-normal-state-map (kbd "C-o") 'forward-word)
-(define-key bodhi-normal-state-map (kbd "M-o") 'kill-word)
+(define-key bodhi-normal-state-map (kbd "M-u") 'backward-word)
+(define-key bodhi-normal-state-map (kbd "C-u") 'backward-kill-word)
+(define-key bodhi-normal-state-map (kbd "M-o") 'forward-word)
+(define-key bodhi-normal-state-map (kbd "C-o") 'kill-word)
 
 (define-key bodhi-normal-state-map (kbd "$")   'end-of-line)
-(define-key bodhi-normal-state-map (kbd "C-$") 'end-of-line)
-(define-key bodhi-normal-state-map (kbd "M-$") 'kill-line)
+(define-key bodhi-normal-state-map (kbd "M-$") 'end-of-line)
+(define-key bodhi-normal-state-map (kbd "C-$") 'kill-line)
 
-(define-key bodhi-normal-state-map (kbd "C-à") 'beginning-of-line)
-(define-key bodhi-normal-state-map (kbd "C-^") 'beginning-of-line)
-(define-key bodhi-normal-state-map (kbd "M-à") 'bodhi-backward-kill-line)
+(define-key bodhi-normal-state-map (kbd "M-à") 'beginning-of-line)
+(define-key bodhi-normal-state-map (kbd "M-^") 'beginning-of-line)
+(define-key bodhi-normal-state-map (kbd "C-à") 'bodhi-backward-kill-line)
 
 
 (define-key bodhi-normal-state-map (kbd "C-<backspace>") 'backward-word)
@@ -327,26 +200,22 @@ If no argument given, copy 1 char."
 
 (define-key bodhi-normal-state-map (kbd "C-c c") 'bodhi-copy-line)
 (define-key bodhi-normal-state-map (kbd "C-x x") 'kill-whole-line)
-(define-key bodhi-normal-state-map (kbd "C-x o") 'kill-word)
-(define-key bodhi-normal-state-map (kbd "C-x u") 'backward-kill-word)
-(define-key bodhi-normal-state-map (kbd "C-x $") 'kill-line)
-
 
 ;; cua + nilliy std keys.
 
 (define-key bodhi-normal-state-map (kbd "C-q") 'keyboard-quit)
 (define-key bodhi-normal-state-map (kbd "M-q") 'quoted-insert) ;; eg for $...
 (define-key bodhi-normal-state-map (kbd "C-z") 'undo)
-(define-key bodhi-normal-state-map (kbd "C-w") 'delete-window)
+(define-key bodhi-normal-state-map (kbd "C-w") 'bodhi-close-tab)
 (define-key bodhi-normal-state-map (kbd "C-t") 'split-window-right)
 
 (define-key bodhi-normal-state-map (kbd "C-x C-s") nil)
 (define-key bodhi-normal-state-map (kbd "C-s") 'save-buffer)
 (define-key bodhi-normal-state-map (kbd "C-n") 'bodhi-new-empty-buffer)
 
-(define-key bodhi-normal-state-map (kbd "C-f") 'bodhi-find)
-(define-key bodhi-normal-state-map (kbd "M-f") 'regexp-builder)
-(define-key bodhi-normal-state-map (kbd "C-r") 'bodhi-replace)
+(define-key bodhi-normal-state-map (kbd "C-f") 'bodhi-find-prompt)
+(define-key bodhi-normal-state-map (kbd "M-f") 'tmm-menubar)
+(define-key bodhi-normal-state-map (kbd "C-r") 'bodhi-replace-prompt)
 (define-key bodhi-normal-state-map (kbd "C-v") 'cua-paste)
 
 
@@ -361,7 +230,8 @@ If no argument given, copy 1 char."
 ;  ---------- additional edition features -------------------
 
 (define-key bodhi-normal-state-map (kbd "C-e") 'bodhi-copy-from-above)
-(define-key bodhi-normal-state-map (kbd "M-m") 'newline-and-indent)
+(define-key bodhi-normal-state-map (kbd "C-m") 'newline-and-indent)
+(define-key bodhi-normal-state-map (kbd "M-m") 'newline)
 
 ; ----------- others ------------------------------------------
 

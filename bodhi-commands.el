@@ -1,3 +1,49 @@
+(defun bodhi-enf-of-line ()
+  (interactive)
+  (if (= (point) (progn (end-of-line) (point)))
+     (next-line)))
+
+
+
+(defun bodhi-back-to-indentation ()
+  (interactive)
+  (if (= (point) (progn (back-to-indentation) (point)))
+    (beginning-of-line)))
+
+
+
+(defun bodhi-copy-from-above (&optional arg)
+  "Copy characters from previous nonblank line, starting just above point.
+Copy ARG characters, but not past the end of that line.
+If no argument given, copy 1 char."
+  (interactive "P")
+  (let ((cc (current-column))
+	n
+	(string ""))
+    (save-excursion
+      (beginning-of-line)
+      (backward-char 1)
+      (skip-chars-backward "\ \t\n")
+      (move-to-column cc)
+       (setq n (if arg (prefix-numeric-value-arg) 1))
+      ;; If current column winds up in middle of a tab,
+      ;; copy appropriate number of "virtual" space chars.
+      (if (< cc (current-column))
+	  (if (= (preceding-char) ?\t)
+	      (progn
+		(setq string (make-string (min n (- (current-column) cc)) ?\s))
+		(setq n (- n (min n (- (current-column) cc)))))
+	    ;; In middle of ctl char => copy that whole char.
+	    (backward-char 1)))
+      (setq string (concat string
+			   (buffer-substring
+			    (point)
+			    (min (line-end-position)
+				 (+ n (point)))))))
+    (insert string)))
+
+
+
 
  (defun bodhi-copy-line (arg)
     "Copy lines (as many as prefix argument) in the kill ring.
@@ -54,5 +100,7 @@ If window is the only one, kill buffer."
     (if (eq win (next-window))
          (kill-buffer)
          (delete-window))))
+
+
 
 (provide 'bodhi-commands)

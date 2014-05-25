@@ -9,7 +9,9 @@
 ;    - [-] prompts (^f, ^r...)
 ;    - [-] op/motion shortcuts
 ;  - [x] amend evil-selection-state to be consitent
-;  - [n ] evil-rectangle-state or visual. Or make cua-rectangle work.
+;  - [ ] evil-rectangle-state or visual. Or make cua-rectangle work.
+;        well, cua-rectangle is now usable
+;        don't know about 24.4 rectangles
 ;  - [x] amend evil-normal-state to be consistent
 ;  - [ ] more aliases might come. But since we implement on top of evil...
 ;

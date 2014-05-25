@@ -56,10 +56,6 @@
 ;(setq evil-default-state 'bodhi)
 
 
-
-
-
-
 ; ------------------ some commands i need -------------
 ; -- - only commands depending on evil here -----------
 
@@ -385,7 +381,7 @@
 (define-key evil-insert-state-map (kbd "C-r") 'bodhi-replace-prompt)
 
 
-(define-key evil-insert-state-map (kbd "C-v") 'evil-paste-after)
+(define-key evil-insert-state-map (kbd "C-v") 'yank)
 
 ; alt
 (define-key evil-insert-state-map (kbd "M-f") 'tmm-menubar)

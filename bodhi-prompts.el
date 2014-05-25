@@ -107,21 +107,13 @@
   (interactive)
   (setq c (bodhi-prompt "Search"
    "
-    r: query-replace-regexp
-    f: query-replace
+    r: query-replace-regexp    j: join-line (following)
+    f: query-replace           J: join-line (previous)
     i: replace-string
-    l: replace-regexp
-
-    k: overwrite-mode
-
-    j: join-line (following)
-    J: join-line (previous)
-
-    z: zap-to-char
-
-    u: UPCASE-WORD
-    d: downcase-word
-    c: Capitalize-Word"))
+    l: replace-regexp          u: UPCASE-WORD
+                               d: downcase-word
+    k: overwrite-mode          c: Capitalize-Word
+    z: zap-to-char"))
   (cond
    ((eq c ?r)
     (call-interactively 'query-replace-regexp))

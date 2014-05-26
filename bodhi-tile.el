@@ -21,6 +21,6 @@
 (defun bodhi-win-down () (interactive) (bodhi-swap-with 'down))
 (defun bodhi-win-up   () (interactive) (bodhi-swap-with 'up))
 (defun bodhi-win-left () (interactive) (bodhi-swap-with 'left))
-(defun bodhi-win-right () (interactive) (bodhi-swap-with 'right)
+(defun bodhi-win-right () (interactive) (bodhi-swap-with 'right))
 
 (provide 'bodhi-tile)

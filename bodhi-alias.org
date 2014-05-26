@@ -1,3 +1,9 @@
-| fc | forward-char    | next char              |
-| bc | backward-char   | previous char          |
-| dd | kill-whole-line | delete from bol to eol |
+| bj  | bookmark-jump              | go to bookmark          |
+| bk  | bookmark-set               | set a bookmark          |
+| one | delete-other-window        | make this window unique |
+| clo | delete-window              | close this window       |
+| eb  | eval-buffer                | evaluate this buffer    |
+| e!  | revert-buffer              | reload the file         |
+| q   | save-buffers-kill-terminal | quit emacs              |
+| vs  | split-window-right         | vertical split          |
+| w   | save-buffer                | write to file           |

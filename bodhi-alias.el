@@ -28,6 +28,14 @@ Call xxx to display existing aliases
 Call xxx to edit existing aliases and maybe save it to a file.
 Call xxx to reload aliases from the file.")
 
+(defvar bodhi-alias-files-list '(list "./bodhi-alias.org")
+"List of files containing aliases, as to be parsed per
+bodhi-alias-parse-aliases.
+
+User and modes can add files to this list. A custom func
+is provided to both add a file to this list & rebuild aliases.")
+
+
 
 (defun bodhi-alias-list-aliases ()
 "List current bodhi aliases.
@@ -48,7 +56,7 @@ ten thousands aliases, but you don't, dude."
 
 
 
-(defun bodhi-alias-from-strings (alname funame &optional docstr)
+(defun bodhi-alias-defalias-from-strings (alname funame &optional docstr)
   "Make an alias from strings.
 
 Do not call this directly, this is made to be called by others."
@@ -59,7 +67,7 @@ Do not call this directly, this is made to be called by others."
   (defalias (nth 0 el) (nth 1 el) (nth 2 el)))
 
 
-(defun bodhi-read-lines (fullname)
+(defun bodhi-alias-read-lines (fullname)
   "Return a list of lines of a file <fullname>."
   (interactive)
   (with-temp-buffer
@@ -67,18 +75,31 @@ Do not call this directly, this is made to be called by others."
     (split-string (buffer-string) "\n" t)))
 
 
-(defun bodhi-parse-aliases (&optional filename)
+(defun bodhi-alias-parse-aliases (&optional filename)
   "Parses bodhi-alias.alias in current directory.
 For each row, try to create an alias from this row."
   (interactive)
-  (setq parser
-    (bodhi-read-lines "bodhi-alias.org"))
+  (setq i 1) ; 0 is "list", 1 is first value.
+  (setq curfile (nth i bodhi-alias-files-list))
+  (while curfile
+    (setq parser
+     (bodhi-alias-read-lines curfile))
   (while parser
     (setq row (split-string (car parser) "|"))
-    (bodhi-alias-from-strings
+    (bodhi-alias-defalias-from-strings
       (replace-regexp-in-string " " "" (nth 1 row))
       (replace-regexp-in-string " " "" (nth 2 row))
       (nth 3 row))
-    (setq parser (cdr parser))))
+    (setq parser (cdr parser))
+  (setq i (+ 1 i))
+  (setq curfile (nth i bodhi-alias-files-list)))))
+
+(defun bodhi-alias-add-file (filename)
+  (interactive)
+  (if (eq bodhi-aliases-files-list nil)
+      (setq bodhi-aliases-files-list (list filename))
+      (add-to-list bodhi-aliases-files-list filename))
+  (bodhi-alias-parse-aliases))
 
 
+(provide 'bodhi-alias)

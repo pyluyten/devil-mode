@@ -1,3 +1,7 @@
+;
+;    Pierre-Yves Luyten           2014.
+;
+;
 ;    This file is part of Bodhi.
 ; 
 ;    Bodhi is free software: you can redistribute it and/or modify
@@ -193,7 +197,6 @@
 (define-key evil-insert-state-map (kbd "C-<SPC>") 'evil-visual-char)
 (define-key evil-insert-state-map (kbd "C-<RET>")  'cua-rectangle-set-mark) ;; fixme of course. Cannot work.
 
-; switch to normal-state
 (define-key evil-insert-state-map (kbd "C-M-l") 'bodhi-normal-state-after)
 (define-key evil-insert-state-map (kbd "C-M-j") 'evil-normal-state)
 (define-key evil-insert-state-map (kbd "C-M-i") 'bodhi-normal-state-previous-line)
@@ -391,6 +394,11 @@
 
 ; alt
 (define-key evil-insert-state-map (kbd "M-f") 'tmm-menubar)
+(define-key evil-insert-state-map (kbd "M-p i") 'bodhi-win-up)
+(define-key evil-insert-state-map (kbd "M-p k") 'bodhi-win-down)
+(define-key evil-insert-state-map (kbd "M-p j") 'bodhi-win-left)
+(define-key evil-insert-state-map (kbd "M-p l") 'bodhi-win-right)
+
 
 ;  ---------- additional edition features -------------------
 

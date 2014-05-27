@@ -18,6 +18,19 @@
  with ^r one can enter overwrite mode, replace-regexp
  ^g  G[lobal|oto] is a specific prompt.
 
+
+*Alias*
+ status: base is ok. Improving needs more thinking.
+ rationale: M-x is the right way, using something
+ like vim ex commands on Emacs is not.
+ Making M-x easy to reach is another issue.
+ This one is a comfortable M-x. We need
+ several aliases, and we need these
+ to be comfortable to define and to be able
+ to sort them (per functions AND per alias).
+ The way is to load alias from file(s),
+ which offers bodhi-alias.el.
+ 
  
 *More CUA*
  status: ok, that's simple!
@@ -51,17 +64,6 @@
  prompts functions work on regions when text is selected.
  I did it for ^f f, ie C-f prompt+f, isearch-forward
  which will use selected region as search string.
-
-
-* ALIAS
-  status: not done
-  rationale: user should be avaiable to define
-  its aliases in a dedicated file, and should
-  have a func to display these at runtime.
-
-  M-x should always be accessible more easily
-  than typing M-x, and short aliases should be available
-  as an alternative to keys.
 
 
 * LIGHT AND SANE INIT

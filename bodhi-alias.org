@@ -7,3 +7,7 @@
 | q   | save-buffers-kill-terminal | quit emacs              |
 | vs  | split-window-right         | vertical split          |
 | w   | save-buffer                | write to file           |
+| wii | bodhi-win-up               | move frame up           |
+| wil | bodhi-win-right            | move frame right        |
+| wik | bodhi-win-down             | move frame down         |
+| wij | bodhi-win-left             | move frame left         |

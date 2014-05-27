@@ -24,17 +24,21 @@ Each bodhi alias is a string of three elements,
 the alias symbol, the function it's an alias for,
 and the optional docstr.
 
-Call xxx to display existing aliases
+Call bodhi-alias-list-aliases to display existing aliases
+     currently it just 'message ()
 Call xxx to edit existing aliases and maybe save it to a file.
-Call xxx to reload aliases from the file.")
+     to be done
+Call bodhi-alias-add-file to reload aliases from the file.
+     ok.")
 
-(defvar bodhi-alias-files-list '(list "./bodhi-alias.org")
+
+
+(defvar bodhi-alias-files-list nil
 "List of files containing aliases, as to be parsed per
 bodhi-alias-parse-aliases.
 
 User and modes can add files to this list. A custom func
 is provided to both add a file to this list & rebuild aliases.")
-
 
 
 (defun bodhi-alias-list-aliases ()
@@ -79,7 +83,7 @@ Do not call this directly, this is made to be called by others."
   "Parses bodhi-alias.alias in current directory.
 For each row, try to create an alias from this row."
   (interactive)
-  (setq i 1) ; 0 is "list", 1 is first value.
+  (setq i 0) ; 0 is "list", 1 is first value.
   (setq curfile (nth i bodhi-alias-files-list))
   (while curfile
     (setq parser
@@ -94,12 +98,21 @@ For each row, try to create an alias from this row."
   (setq i (+ 1 i))
   (setq curfile (nth i bodhi-alias-files-list)))))
 
-(defun bodhi-alias-add-file (filename)
+
+(defun bodhi-alias-add-file (filenamestr)
   (interactive)
-  (if (eq bodhi-aliases-files-list nil)
-      (setq bodhi-aliases-files-list (list filename))
-      (add-to-list bodhi-aliases-files-list filename))
+  (setq item (cons filenamestr nil))
+  (if (eq bodhi-alias-files-list nil)
+      (setq bodhi-alias-files-list item)
+      (add-to-list bodhi-alias-files-list item))
   (bodhi-alias-parse-aliases))
 
+;(intern "orgal")
+
+;(setq orgal "bodhi-alias.org")
+
+;(setq toto orgal)
+
+;(bodhi-alias-add-file orgal)
 
 (provide 'bodhi-alias)

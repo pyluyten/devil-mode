@@ -1,16 +1,37 @@
-; this is a bare trial.
-; ok now this works, but we miss
 ;
-; 1. allow to edit a .alias with convenience, mostly completion.
-;    now we have a .org file  but main features are to be coded.
-; 2. distribute a default .alias
-;    or, maybe make bodhi-common depend on this
-;    & let it ship its aliases =)
-; 3. use a defcustom to lookup for the file?
-;    or not...
-; 4. have a func do display current aliases
-;    current one is just for debugging
-;    this might be the same than 1...
+;    Pierre-Yves Luyten           2014.
+;
+;
+;    This file is part of Bodhi.
+; 
+;    Bodhi is free software: you can redistribute it and/or modify
+;    it under the terms of the GNU General Public License as published by
+;    the Free Software Foundation, either version 3 of the License, or
+;    (at your option) any later version.
+; 
+;    Bodhi is distributed in the hope that it will be useful,
+;    but WITHOUT ANY WARRANTY; without even the implied warranty of
+;    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;    GNU General Public License for more details.
+; 
+;    You should have received a copy of the GNU General Public License
+;    along with Bodhi.  If not, see <http://www.gnu.org/licenses/>.
+;
+;
+;
+;    ~~~ Principle
+;    This was a bare trial but it appears its quite simple to
+;    define aliases from strings. Thus, from a file.
+;    Thus, from a list of files.
+;
+;    ~~~ Wishlist
+;    This is already nice because even a dot.org file is better
+;    to maintain than defalias list.
+;    Also, we can leverage this to memorize alias which we're creating
+;    Next step is to display it and allow user to add
+;    its own file more dynamically...
+;
+;    function completion while editing is also important.
 
 
 

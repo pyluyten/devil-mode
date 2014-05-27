@@ -1,28 +1,34 @@
-; bodhi-evil is licensed under GPLv2 +, that is, GPL v2 or further at your convenience.
-;
+;    This file is part of Bodhi.
+; 
+;    Bodhi is free software: you can redistribute it and/or modify
+;    it under the terms of the GNU General Public License as published by
+;    the Free Software Foundation, either version 3 of the License, or
+;    (at your option) any later version.
+; 
+;    Bodhi is distributed in the hope that it will be useful,
+;    but WITHOUT ANY WARRANTY; without even the implied warranty of
+;    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;    GNU General Public License for more details.
+; 
+;    You should have received a copy of the GNU General Public License
+;    along with Bodhi.  If not, see <http://www.gnu.org/licenses/>.
 ;
 ; -------------------- BODHI EVIL -----------------------------
 ;
 ;  Implement
-;  - [-] evil-bodhi-state
-;    - [x] paddle, extended paddle + cua paddle
-;    - [-] prompts (^f, ^r...)
-;    - [-] op/motion shortcuts
+;  - [x] evil-bodhi-state => mostly, good
+;    - [x] paddle, extended paddle
+;    - [x] prompts (^f, ^r, ^g)
+;      +op/motion shortcuts are not that good finally+
 ;  - [x] amend evil-selection-state to be consitent
-;  - [ ] evil-rectangle-state or visual. Or make cua-rectangle work.
+;  - [-] evil-rectangle-state or visual. Or make cua-rectangle work.
 ;        well, cua-rectangle is now usable
 ;        don't know about 24.4 rectangles
 ;  - [x] amend evil-normal-state to be consistent
 ;  - [ ] more aliases might come. But since we implement on top of evil...
+;  - [ ] if evil is the way to go,
+;        start coding seriously.
 ;
-;
-;  Principle
-;    we define a global minor mode and associate every buffer with that
-;    minor mode with bodhi.
-;    one of the reasons is evil provides a nice infra.
-;    for selections, we don't need to handle the keymaps stack ouserlves.
-;
-
 
 (add-to-list 'load-path "./")
 

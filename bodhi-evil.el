@@ -29,7 +29,7 @@
 ;        well, cua-rectangle is now usable
 ;        don't know about 24.4 rectangles
 ;  - [x] amend evil-normal-state to be consistent
-;  - [ ] more aliases might come. But since we implement on top of evil...
+;  - [x] more aliases might come.
 ;  - [ ] if evil is the way to go,
 ;        start coding seriously.
 ;

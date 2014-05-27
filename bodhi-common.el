@@ -29,6 +29,9 @@
 
 (require 'bodhi-alias)
 
-(bodhi-alias-add-file "bodhi-alias.org")
+(bodhi-alias-add-file
+  (concat
+    (file-name-directory (or load-file-name buffer-file-name))
+    "/bodhi-alias.org"))
 
 (provide 'bodhi-common)

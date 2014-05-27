@@ -1,4 +1,7 @@
 ;;
+;;   Pierre-Yves Luyten 2014
+;;
+;;
 ;;   This file is part of Bodhi.
 ;;
 ;;   Bodhi is free software: you can redistribute it and/or modify

@@ -34,32 +34,26 @@
 ;    function completion while editing is also important.
 
 
-
-
 ; core
 
 (defvar bodhi-aliases nil
- "List of bodhi aliases.
+ "List table of bodhi aliases.
 
 Each bodhi alias is a string of three elements,
 the alias symbol, the function it's an alias for,
 and the optional docstr.
 
 Call bodhi-alias-list-aliases to display existing aliases
-     currently it just 'message ()
+     -- currently it just 'message () --
 Call xxx to edit existing aliases and maybe save it to a file.
-     to be done
-Call bodhi-alias-add-file to reload aliases from the file.
-     ok.")
+Call bodhi-alias-add-file to add a file to this table.
+Call bodhi-alias-parse-aliases to reload every file (does not remove old ones yet.)")
 
 
 
-(defvar bodhi-alias-files-list nil
-"List of files containing aliases, as to be parsed per
-bodhi-alias-parse-aliases.
-
-User and modes can add files to this list. A custom func
-is provided to both add a file to this list & rebuild aliases.")
+(defvar bodhi-alias-files-list (make-hash-table :test 'equal)
+"Hash table of files containing aliases.
+See bodhi-aliases.")
 
 
 (defun bodhi-alias-list-aliases ()
@@ -100,40 +94,35 @@ Do not call this directly, this is made to be called by others."
     (split-string (buffer-string) "\n" t)))
 
 
-(defun bodhi-alias-parse-aliases (&optional filename)
-  "Parses bodhi-alias.alias in current directory.
+(defun bodhi-alias-parse-aliases ()
+"Use bodhi-alias-files-list to parse aliases.
+
 For each row, try to create an alias from this row."
   (interactive)
-  (setq i 0)
-  (setq curfile (nth i bodhi-alias-files-list))
-  (while curfile
-    (setq parser
-     (bodhi-alias-read-lines curfile))
-  (while parser
-    (setq row (split-string (car parser) "|"))
-    (bodhi-alias-defalias-from-strings
-      (replace-regexp-in-string " " "" (nth 1 row))
-      (replace-regexp-in-string " " "" (nth 2 row))
-      (nth 3 row))
-    (setq parser (cdr parser))
-  (setq i (+ 1 i))
-  (setq curfile (nth i bodhi-alias-files-list)))))
+  (maphash
+    (lambda (key value)
+      (setq parser (bodhi-alias-read-lines key))
+      (while parser
+        (setq row (split-string (car parser) "|"))
+        (bodhi-alias-defalias-from-strings
+          (replace-regexp-in-string " " "" (nth 1 row))
+          (replace-regexp-in-string " " "" (nth 2 row))
+          (nth 3 row))
+          (setq parser (cdr parser))))
+    bodhi-alias-files-list))
 
 
 (defun bodhi-alias-add-file (filenamestr)
   (interactive)
-  (setq item (cons filenamestr nil))
-  (if (eq bodhi-alias-files-list nil)
-      (setq bodhi-alias-files-list item)
-      (add-to-list 'bodhi-alias-files-list item))
+  (puthash filenamestr filenamestr bodhi-alias-files-list)
   (bodhi-alias-parse-aliases))
 
-;(intern "orgal")
 
-;(setq orgal "bodhi-alias.org")
+(defun bodhi-alias-remove-file (filenamestr)
+  (interactive)
+  (remhash filenamestr bodhi-alias-files-list)
+  (bodhi-alias-parse-aliases))
 
-;(setq toto orgal)
 
-;(bodhi-alias-add-file orgal)
 
 (provide 'bodhi-alias)

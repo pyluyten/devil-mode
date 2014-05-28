@@ -1,6 +1,6 @@
 | bj  | bookmark-jump              | go to bookmark          |
 | bk  | bookmark-set               | set a bookmark          |
-| one | delete-other-window        | make this window unique |
+| one | delete-other-windows       | make this window unique |
 | clo | delete-window              | close this window       |
 | eb  | eval-buffer                | evaluate this buffer    |
 | e!  | revert-buffer              | reload the file         |

@@ -32,6 +32,6 @@
 (bodhi-alias-add-file
   (concat
     (file-name-directory (or load-file-name buffer-file-name))
-    "/bodhi-alias.org"))
+    "bodhi-alias.org"))
 
 (provide 'bodhi-common)

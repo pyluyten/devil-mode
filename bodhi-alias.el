@@ -104,7 +104,7 @@ Do not call this directly, this is made to be called by others."
   "Parses bodhi-alias.alias in current directory.
 For each row, try to create an alias from this row."
   (interactive)
-  (setq i 0) ; 0 is "list", 1 is first value.
+  (setq i 0)
   (setq curfile (nth i bodhi-alias-files-list))
   (while curfile
     (setq parser
@@ -125,7 +125,7 @@ For each row, try to create an alias from this row."
   (setq item (cons filenamestr nil))
   (if (eq bodhi-alias-files-list nil)
       (setq bodhi-alias-files-list item)
-      (add-to-list bodhi-alias-files-list item))
+      (add-to-list 'bodhi-alias-files-list item))
   (bodhi-alias-parse-aliases))
 
 ;(intern "orgal")

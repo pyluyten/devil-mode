@@ -113,7 +113,11 @@
 	(isearch-yank-string (buffer-substring-no-properties (region-beginning) (region-end))))
     (isearch-forward-regexp)))
    ((eq c ?j)
-    (isearch-backward-regexp))
+    (if mark-active
+      (progn
+	(call-interactively 'isearch-backward-regexp)
+	(isearch-yank-string (buffer-substring-no-properties (region-beginning) (region-end))))
+    (isearch-backward-regexp)))
    ((eq c ?l)
     ;; TODO - don't use evil- in this file.
     (call-interactively 'evil-find-char))

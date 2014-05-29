@@ -1,4 +1,9 @@
 ;;
+;;
+;;   Pierre-Yves Luyten
+;;   2014
+;;
+;;
 ;;   This file is part of Bodhi.
 ;;
 ;;   Bodhi is free software: you can redistribute it and/or modify
@@ -86,13 +91,11 @@
   (interactive)
   (setq c (bodhi-prompt "Search"
    "
-    f: isearch-forward
+    f: isearch-forward             l: evil-find-char        v: visit-file
     r: isearch-backward
 
     j: isearch-backward-regexp
     k: isearch-forward-regexp
-    l: evil-find-char
-
     b: regexp-builder"))
   (cond
    ((eq c ?f)
@@ -116,6 +119,8 @@
     (call-interactively 'evil-find-char))
    ((eq c ?b)
     (regexp-builder))
+   ((eq c ?v)
+    (call-interactively 'find-file))
    (t
     (keyboard-quit))))
 

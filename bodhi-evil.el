@@ -220,8 +220,8 @@
 (define-key evil-normal-state-map (kbd "u") 'backward-word)
 (define-key evil-normal-state-map (kbd "o") 'forward-word)
 (define-key evil-normal-state-map (kbd "$") 'evil-end-of-line)
-(define-key evil-normal-state-map (kbd "^") 'evil-beginning-of-line)
-(define-key evil-normal-state-map (kbd "à") 'evil-beginning-of-line)
+(define-key evil-normal-state-map (kbd "^") 'bodhi-back-to-indentation)
+(define-key evil-normal-state-map (kbd "à") 'bodhi-back-to-indentation)
 
 ; switches
 (define-key evil-normal-state-map (kbd "M-i") 'evil-open-above)
@@ -263,9 +263,9 @@
 (define-key evil-visual-state-map (kbd "j") 'backward-char)
 
 (define-key evil-visual-state-map (kbd "$") 'end-of-line)
-(define-key evil-visual-state-map (kbd "0") 'beginning-of-line)
-(define-key evil-visual-state-map (kbd "à") 'beginning-of-line) ; azerty for 0
-(define-key evil-visual-state-map (kbd "^") 'evil-first-non-blank)
+(define-key evil-visual-state-map (kbd "0") 'bodhi-back-to-bol)
+(define-key evil-visual-state-map (kbd "à") 'bodhi-back-to-bol) ; azerty for 0
+(define-key evil-visual-state-map (kbd "^") 'bodhi-back-to-indentation)
 (define-key evil-visual-state-map (kbd "o") 'forward-word)
 (define-key evil-visual-state-map (kbd "u") 'backward-word)
 (define-key evil-visual-state-map (kbd "b") 'backward-word)
@@ -332,8 +332,8 @@
 (define-key evil-insert-state-map (kbd "M-u") 'backward-word)
 (define-key evil-insert-state-map (kbd "M-o") 'forward-word)
 (define-key evil-insert-state-map (kbd "M-$") 'end-of-line)
-(define-key evil-insert-state-map (kbd "M-à") 'beginning-of-line)
-(define-key evil-insert-state-map (kbd "M-^") 'beginning-of-line)
+(define-key evil-insert-state-map (kbd "M-à") 'bodhi-back-to-bol)
+(define-key evil-insert-state-map (kbd "M-^") 'bodhi-back-to-bol)
 
 (define-key evil-insert-state-map (kbd "C-u") 'backward-kill-word)
 (define-key evil-insert-state-map (kbd "C-o") 'kill-word)

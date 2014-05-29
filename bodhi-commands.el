@@ -8,8 +8,14 @@
 (defun bodhi-back-to-indentation ()
   (interactive)
   (if (= (point) (progn (back-to-indentation) (point)))
-    (beginning-of-line)))
+    (if (= (point) (progn (beginning-of-line) (point)))
+	(previous-line))))
 
+
+(defun bodhi-back-to-bol ()
+  (interactive)
+  (if (= (point) (progn (beginning-of-line) (point)))
+      (previous-line)))
 
 
 (defun bodhi-copy-from-above (&optional arg)

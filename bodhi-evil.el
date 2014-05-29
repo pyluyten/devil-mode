@@ -391,6 +391,7 @@
 
 
 (define-key evil-insert-state-map (kbd "C-v") 'yank)
+(define-key evil-insert-state-map (kbd "M-v") 'yank-pop)
 
 ; alt
 (define-key evil-insert-state-map (kbd "M-f") 'tmm-menubar)

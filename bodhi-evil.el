@@ -369,7 +369,7 @@
 (define-key evil-insert-state-map (kbd "M-q") 'quoted-insert) ;; eg for $...
 (define-key evil-insert-state-map (kbd "C-z") 'undo)
 (define-key evil-insert-state-map (kbd "C-w") 'bodhi-close-tab)
-(define-key evil-insert-state-map (kbd "C-t") 'split-window-right)
+(define-key evil-insert-state-map (kbd "C-t") 'bodhi-new-tab)
 
 (define-key evil-insert-state-map (kbd "C-x C-s") nil)
 (define-key evil-insert-state-map (kbd "C-s") 'save-buffer)

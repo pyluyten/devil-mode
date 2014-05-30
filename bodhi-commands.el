@@ -1,3 +1,10 @@
+
+(defun bodhi-new-tab ()
+  (interactive)
+  (ibuffer t "Blank Tab"))
+
+
+
 (defun bodhi-enf-of-line ()
   (interactive)
   (if (= (point) (progn (end-of-line) (point)))

@@ -21,14 +21,17 @@
 
 (add-to-list 'load-path "./")
 
+; external parts needed to make a modern editor work...
 (require 'transpose-frame)
 (require 'bodhi-tile)
+(require 'dhammacakka)
 
+; internal parts
 (require 'bodhi-prompts)
 (require 'bodhi-commands)
-
 (require 'bodhi-alias)
 
+; internal alias file.
 (bodhi-alias-add-file
   (concat
     (file-name-directory (or load-file-name buffer-file-name))

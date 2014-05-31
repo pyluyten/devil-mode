@@ -63,6 +63,9 @@
   (setq make-backup-files nil)
   (setq auto-save-default nil)
 
+  (require 'recentf)
+  (recentf-mode 1)
+
 ; do not break on real files
 
 (defun dhamma-big-files ()

@@ -92,9 +92,9 @@
   (setq c (bodhi-prompt "Search"
    "
     f: isearch-forward             l: evil-find-char        v: visit-file
-    r: isearch-backward
+    j: isearch-backward                                     r: recent files
 
-    j: isearch-backward-regexp
+    i: isearch-backward-regexp
     k: isearch-forward-regexp
     b: regexp-builder"))
   (cond
@@ -104,7 +104,7 @@
 	(call-interactively 'isearch-forward)
 	(isearch-yank-string (buffer-substring-no-properties (region-beginning) (region-end))))
       (isearch-forward)))
-   ((eq c ?r)
+   ((eq c ?j)
     (isearch-backward))
    ((eq c ?k)
     (if mark-active
@@ -112,7 +112,7 @@
 	(call-interactively 'isearch-forward-regexp)
 	(isearch-yank-string (buffer-substring-no-properties (region-beginning) (region-end))))
     (isearch-forward-regexp)))
-   ((eq c ?j)
+   ((eq c ?i)
     (if mark-active
       (progn
 	(call-interactively 'isearch-backward-regexp)
@@ -125,6 +125,8 @@
     (regexp-builder))
    ((eq c ?v)
     (call-interactively 'find-file))
+   ((eq c ?r)
+    (call-interactively 'recentf-open-files))
    (t
     (keyboard-quit))))
 

@@ -37,15 +37,13 @@
 ; core
 
 (defvar bodhi-aliases (make-hash-table :test 'equal)
- "List table of bodhi aliases.
+ "Hash table of bodhi aliases.
 
 Each bodhi alias is a string of three elements,
 the alias symbol, the function it's an alias for,
 and the optional docstr.
 
 Call bodhi-alias-list-aliases to display existing aliases
-     -- currently it just 'message () --
-Call xxx to edit existing aliases and maybe save it to a file.
 Call bodhi-alias-add-file to add a file to this table.
 Call bodhi-alias-parse-aliases to reload every file (does not remove old ones yet.)")
 
@@ -63,12 +61,14 @@ parse the full list of bodhi 'aliases' (which are themselves, list...)
 this func is really ^n slow! does not matter, unless you want
 ten thousands aliases, but you don't, dude."
   (interactive)
-  (maphash
-    (lambda (key value)
-    (message (concat "ALIAS:" (symbol-name (nth 0 value))
-	             "\nFUNC:"  (symbol-name (nth 1 value))
-		     "\nDESC:"  (nth 2 value)))) bodhi-aliases))
-
+  (let ((buf (generate-new-buffer "Bodhi Aliases")))
+    (switch-to-buffer buf)
+    (maphash
+      (lambda (key value)
+        (insert (concat  "| " (symbol-name (nth 0 value))
+	                 " | "  (symbol-name (nth 1 value))
+	                 " |"  (nth 2 value) "\n"))) bodhi-aliases)
+    (org-mode)))
 
 (defun bodhi-alias-defalias-from-strings (alname funame &optional docstr)
   "Make an alias from strings.

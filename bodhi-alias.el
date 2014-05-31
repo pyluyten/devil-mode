@@ -36,7 +36,7 @@
 
 ; core
 
-(defvar bodhi-aliases nil
+(defvar bodhi-aliases (make-hash-table :test 'equal)
  "List table of bodhi aliases.
 
 Each bodhi alias is a string of three elements,
@@ -63,16 +63,11 @@ parse the full list of bodhi 'aliases' (which are themselves, list...)
 this func is really ^n slow! does not matter, unless you want
 ten thousands aliases, but you don't, dude."
   (interactive)
-  (setq i 0)
-  (setq cural (nth i bodhi-aliases))
-  (while cural
-    (message (format "Alias Nth. %s" i))
-    (message (concat "ALIAS:" (symbol-name (nth 0 cural))
-	             "\nFUNC:"  (symbol-name (nth 1 cural))
-		     "\nDESC:"  (nth 2 cural)))
-    (setq i (+ i 1))
-    (setq cural (nth i bodhi-aliases))))
-
+  (maphash
+    (lambda (key value)
+    (message (concat "ALIAS:" (symbol-name (nth 0 value))
+	             "\nFUNC:"  (symbol-name (nth 1 value))
+		     "\nDESC:"  (nth 2 value)))) bodhi-aliases))
 
 
 (defun bodhi-alias-defalias-from-strings (alname funame &optional docstr)
@@ -81,8 +76,7 @@ ten thousands aliases, but you don't, dude."
 Do not call this directly, this is made to be called by others."
   (interactive)
   (setq el (list (intern alname) (intern-soft funame) docstr))
-  (setq newl (cons el bodhi-aliases))
-  (setq bodhi-aliases newl)
+  (puthash (nth 0 el) el bodhi-aliases)
   (defalias (nth 0 el) (nth 1 el) (nth 2 el)))
 
 

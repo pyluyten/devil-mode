@@ -67,15 +67,16 @@ ten thousands aliases, but you don't, dude."
       (lambda (key value)
         (insert (concat  "| " (symbol-name (nth 0 value))
 	                 " | "  (symbol-name (nth 1 value))
-	                 " |"  (nth 2 value) "\n"))) bodhi-aliases)
+	                 " | "  (nth 2 value)
+			 " | "  (nth 3 value) "\n"))) bodhi-aliases)
     (org-mode)))
 
-(defun bodhi-alias-defalias-from-strings (alname funame &optional docstr)
+(defun bodhi-alias-defalias-from-strings (filename alname funame &optional docstr)
   "Make an alias from strings.
 
 Do not call this directly, this is made to be called by others."
   (interactive)
-  (setq el (list (intern alname) (intern-soft funame) docstr))
+  (setq el (list (intern alname) (intern-soft funame) docstr filename))
   (puthash (nth 0 el) el bodhi-aliases)
   (defalias (nth 0 el) (nth 1 el) (nth 2 el)))
 
@@ -99,11 +100,13 @@ For each row, try to create an alias from this row."
       (while parser
         (setq row (split-string (car parser) "|"))
         (bodhi-alias-defalias-from-strings
+	  value
           (replace-regexp-in-string " " "" (nth 1 row))
           (replace-regexp-in-string " " "" (nth 2 row))
           (nth 3 row))
           (setq parser (cdr parser))))
     bodhi-alias-files-list))
+
 
 
 (defun bodhi-alias-add-file (filenamestr)

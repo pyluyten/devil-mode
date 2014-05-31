@@ -69,7 +69,9 @@ ten thousands aliases, but you don't, dude."
 	                 " | "  (symbol-name (nth 1 value))
 	                 " | "  (nth 2 value)
 			 " | "  (nth 3 value) "\n"))) bodhi-aliases)
-    (org-mode)))
+    (org-mode)
+    (previous-line)
+    (org-table-align)))
 
 (defun bodhi-alias-defalias-from-strings (filename alname funame &optional docstr)
   "Make an alias from strings.

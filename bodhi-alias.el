@@ -65,13 +65,17 @@ ten thousands aliases, but you don't, dude."
     (switch-to-buffer buf)
     (maphash
       (lambda (key value)
-        (insert (concat  "| " (symbol-name (nth 0 value))
-	                 " | "  (symbol-name (nth 1 value))
-	                 " | "  (nth 2 value)
-			 " | "  (nth 3 value) "\n"))) bodhi-aliases)
+	(insert "| ")
+	(org-insert-link nil (nth 3 value) (symbol-name (nth 0 value)))
+	(insert (concat
+	            " | "  (symbol-name (nth 1 value))
+	            " | "  (nth 2 value) "\n"))) bodhi-aliases)
     (org-mode)
     (previous-line)
-    (org-table-align)))
+    (org-table-align)
+    (beginning-of-buffer)))
+
+
 
 (defun bodhi-alias-defalias-from-strings (filename alname funame &optional docstr)
   "Make an alias from strings.

@@ -22,6 +22,13 @@
 ;;
 ;;
 
+(defun bodhi-prompt-for-keymap (keym)
+ (setq curb (current-buffer))
+ (with-help-window (help-buffer)
+   (prin1 (symbol-name keym))
+   (princ "\n
+Now i should lookup for available keys!!!")))
+
 
 (defun bodhi-prompt (&optional title message)
  (interactive)
@@ -41,6 +48,13 @@
  (kill-buffer buf)
  (switch-to-buffer curb)
  (setq x x))
+
+
+
+(defun bodhi-ctl-x-prompt ()
+  (interactive)
+  (bodhi-prompt-for-keymap 'ctl-x-map)
+  (set-temporary-overlay-map ctl-x-map))
 
 
 (defun bodhi-global-prompt ()

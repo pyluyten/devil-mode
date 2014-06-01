@@ -160,12 +160,12 @@
 (defun bodhi-prepare-for-isearch ()
   (define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
   (define-key isearch-mode-map (kbd "C-r") 'isearch-repeat-backward)
-  (define-key isearch-mode-map (kbd "C-j") 'isearch-repeat-backward)
-)
+  (define-key isearch-mode-map (kbd "C-j") 'isearch-repeat-backward))
 
 (defun bodhi-prepare-for-ibuffer ()
   ; use <space> to go down. i is enough
-  (define-key ibuffer-mode-map (kbd "i") 'ibuffer-backward-line))
+  (define-key ibuffer-mode-map (kbd "M-i") 'ibuffer-backward-line)
+  (define-key ibuffer-mode-map (kbd "M-k") 'ibuffer-forward-line))
 
 (defun bodhi-prepare-for-minibuffer ()
   "Restore tab for completion."
@@ -178,7 +178,8 @@
 
 (defun bodhi-prepare-for-dired ()
   ; use <space> to go down. i is enough
-  (define-key dired-mode-map  (kbd "i") 'dired-previous-line))
+  (define-key dired-mode-map  (kbd "M-i") 'dired-previous-line)
+  (define-key dired-mode-map  (kbd "M-k") 'dired-next-line))
 
 
 (add-hook 'minibuffer-setup-hook 'bodhi-prepare-for-minibuffer)

@@ -36,16 +36,20 @@
 
 ; core
 
+(require 'org)
+
 (defvar bodhi-aliases (make-hash-table :test 'equal)
  "Hash table of bodhi aliases.
 
 Each bodhi alias is a string of three elements,
 the alias symbol, the function it's an alias for,
-and the optional docstr.
+the optional docstr, & the file it was defined in.
+
+(Hash keys are the alias.)
 
 Call bodhi-alias-list-aliases to display existing aliases
 Call bodhi-alias-add-file to add a file to this table.
-Call bodhi-alias-parse-aliases to reload every file (does not remove old ones yet.)")
+Call bodhi-alias-parse-aliases to reload every file.")
 
 
 
@@ -55,11 +59,12 @@ See bodhi-aliases.")
 
 
 (defun bodhi-alias-list-aliases ()
-"List current bodhi aliases.
+"List current bodhi aliases in a dedicated buffer.
 
-parse the full list of bodhi 'aliases' (which are themselves, list...)
-this func is really ^n slow! does not matter, unless you want
-ten thousands aliases, but you don't, dude."
+Aliases are links to the files defining them
+thus use org open link
+normally bound to C-c C-
+to visit the file."
   (interactive)
   (let ((buf (generate-new-buffer "Bodhi Aliases")))
     (switch-to-buffer buf)
@@ -94,15 +99,25 @@ Do not call this directly, this is made to be called by others."
     (insert-file-contents fullname)
     (split-string (buffer-string) "\n" t)))
 
-
 (defun bodhi-alias-parse-aliases ()
 "Use bodhi-alias-files-list to parse aliases.
 
-For each row, try to create an alias from this row."
+The function starts undefining all current alias.
+Then, it goes throught every file in the list
+and for each row, try to create an alias from this row."
   (interactive)
+  ;; undefine current aliases. Might be risky ;)
+  (maphash
+     (lambda (key value)
+       (unintern key))
+       bodhi-aliases)
+  ;; empty the list
+  (clrhash bodhi-aliases)
+  ;; check every row of every file
   (maphash
     (lambda (key value)
       (setq parser (bodhi-alias-read-lines key))
+      ;; define the alias & add it to the list
       (while parser
         (setq row (split-string (car parser) "|"))
         (bodhi-alias-defalias-from-strings

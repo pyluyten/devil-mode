@@ -407,8 +407,7 @@
 (define-key evil-insert-state-map (kbd "C-e") 'evil-copy-from-above)
 (define-key evil-insert-state-map (kbd "C-y") 'evil-copy-from-below)
 
-(define-key evil-insert-state-map (kbd "M-m") 'newline)
-(define-key evil-insert-state-map (kbd "C-m") 'newline-and-indent)
+(define-key evil-insert-state-map (kbd "M-m") 'newline-and-indent)
 
 ; ----------- others ------------------------------------------
 

@@ -174,7 +174,7 @@
 
 (defun bodhi-leave-minibuffer ()
   "Restore tab for previous."
-  (define-key evil-insert-state-map (kbd "C-i") 'previous-line))
+  (define-key evil-insert-state-map (kbd "C-i") 'open-line))
 
 (defun bodhi-prepare-for-dired ()
   ; use <space> to go down. i is enough

@@ -156,7 +156,8 @@ Now i should lookup for available keys!!!")))
     l: replace-regexp          u: UPCASE-WORD
                                d: downcase-word
     k: overwrite-mode          c: Capitalize-Word
-    z: zap-to-char"))
+    z: zap-to-char
+                               x: rot13-region (if region)"))
   (cond
    ((eq c ?r)
     (call-interactively 'query-replace-regexp))
@@ -181,6 +182,9 @@ Now i should lookup for available keys!!!")))
     (call-interactively 'downcase-word))
    ((eq c ?c)
     (call-interactively 'capitalize-word))
+   ((eq c ?x)
+    (when mark-active
+    (call-interactively 'rot13-region)))
    (t
     (keyboard-quit))))
 

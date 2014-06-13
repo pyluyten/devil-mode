@@ -314,9 +314,7 @@
 
 ; M- is goto. M space is go to space =)
 (define-key evil-insert-state-map (kbd "M-<SPC>") 'execute-extended-command)
-
-
-; paddle
+(define-key evil-insert-state-map (kbd "M-d")     'evil-delete)
 
 (define-key evil-insert-state-map (kbd "M-i") 'evil-previous-line)
 (define-key evil-insert-state-map (kbd "M-j") 'evil-backward-char)
@@ -347,7 +345,6 @@
 (define-key evil-insert-state-map (kbd "C-<backspace>") 'backward-kill-word)
 (define-key evil-insert-state-map (kbd "C-S-<backspace>") 'kill-whole-line)
 (define-key evil-insert-state-map (kbd "C-d") 'delete-char)
-(define-key evil-insert-state-map (kbd "M-d") 'kill-word)
 
 (define-key evil-insert-state-map (kbd "M-<backpsace>") 'kill-word) ; really buggy now
 (define-key evil-insert-state-map (kbd "S-<backspace>") nil) ; select some word? innerword?

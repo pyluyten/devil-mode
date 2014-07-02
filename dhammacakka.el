@@ -66,6 +66,8 @@
   (require 'recentf)
   (recentf-mode 1)
 
+  (defalias 'yes-or-no-p 'y-or-n-p)
+
 ; do not break on real files
 
 (defun dhamma-big-files ()

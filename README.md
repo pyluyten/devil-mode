@@ -1,95 +1,26 @@
- =As of today, all of this is work in progress=
+/This repo is more or less obsolete/
 
- / 1. Principles/
+Short version : see https://github.com/pyluyten/emacs-nu
 
-*Prompts*
- status: prompts are working fine, despite code is poor.
- rationale: we don't want to memorize one thousands functions,
- but we need them. The right way is to have one key offer
- several functions, like ^x, but prompting the user
- in order not to have to memorize every shortcut.
- roadmap: coding an automatic prompt for Ctrl-X-Prefix
- would be awesome. Making existing prompts richer.
+Long version:
 
- CUA keys like ^f should raise a prompter to offer
- the whole emacs power.
- with ^f one can find-char (to move on) or search,
- or build a regexp.
- with ^r one can enter overwrite mode, replace-regexp
- ^g  G[lobal|oto] is a specific prompt.
+I'm currently hacking on emacs-nu, which is a non modal
+global minor mode with common ideas about usability.
 
+I choosed not to delete this repo because evil-mode or
+ergoemacs-mode remains interesting foundations to build around.
 
-*Alias*
- status: base is ok. Improving needs more thinking.
- rationale: M-x is the right way, using something
- like vim ex commands on Emacs is not.
- Making M-x easy to reach is another issue.
- This one is a comfortable M-x. We need
- several aliases, and we need these
- to be comfortable to define and to be able
- to sort them (per functions AND per alias).
- The way is to load alias from file(s),
- which offers bodhi-alias.el.
- 
- 
-*More CUA*
- status: ok, that's simple!
- rationale: this point also wants to easier learning and usage,
- but does not imply prompting.
- 
- Use ^s, ^z, ^w.
+I looked at the idea to code something usable from
+different modes (proof is, onto this even repo, evil-mode bodhi
+and bodhi without evil use the same prompts).
+But for now this limitation is an issue, prompts are great,
+alt key is great, & i need to extend this to get rid
+of too much keybinds no one can remember.
 
- 
-*Paddle*
- status: this is a spec, not an implementation
-         but i think this spec is now done.
- rationale: most common moves/commands do not have
- to be based on mnemonics. The user can easily memorize
- 6 keys!, especially if he's going to use these all the time.
+Actually the only reason I see is: maybe, while editing
+hours & hours a day, having both what is here bodhi mode
+and evil-mode to switch from one to another, might
+make sense.
 
- ErgoEmacs is totally right about this: ijkl should be use
- to move, and u/o for backward/forward word.
- I added 0 and $ for bol, eol.
- Also, a modifier is not necessary in the case of $, since
- the user do not need to type $ character as much as he needs
- to move to eol.
-
-
-*Selecition state*
- status: prompts are mostly to-do
- rationale: when one is selecting text, typing keys should
- perform actions (move, prompt...) rather than enter chars.
-
- This is vim selection-mode. Additionally, we should have
- prompts functions work on regions when text is selected.
- I did it for ^f f, ie C-f prompt+f, isearch-forward
- which will use selected region as search string.
-
-
-* LIGHT AND SANE INIT
-  status: more or less ok.
-  rationale: it is better to separate settings
-  that are probably pleasant in any case, even if this
-  limits our actions.
-
-  Things like "which global minor mode" should not be defined
-  here.
-
-
- / 2. Implementations /
-
-* bodhi-evil.el
-  status: most have been done.
-  rationale: this was the fastest way to check all these principles!
-
-  bodhi-evil also offers a normal-state, which looks like god-mode
-  ie, keybinding are not really altered, one just has to forget
-  about modifiers...
-  
-* ee-bodhi.el
-  status: still very ppor
-  rationale: having ergoemacs components+layouts might be a good
-  way to implement these principles.
-
-  But i will have to handle the selection-state.
-  And maybe god-state.
+But bodhi would need to be the emacs-state, while evil-mode
+states should remain untouched. And no reason to work on this now.
